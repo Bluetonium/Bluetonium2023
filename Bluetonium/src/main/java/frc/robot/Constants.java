@@ -15,9 +15,8 @@ public final class Constants {
 
 // controller constants
     // controller 0 inputs
-    public static final int DRIVER_CONTROLLER1_THROTTLE = 3;
-    public static final int DRIVER_CONTROLLER1_MOVE_AXIS = 1;
-    public static final int DRIVER_CONTROLLER1_ROTATE_AXIS = 2;
+    public static final int DRIVER_CONTROLLER1_MOVE_AXIS = 2;//change this (if needed)
+    public static final int DRIVER_CONTROLLER1_ROTATE_AXIS = 1;//change this (if needed)
 
     // controller 1 inputs
     public static final int DRIVER_CONTROLLER2_ARMMOTOR = 1;
@@ -27,5 +26,11 @@ public final class Constants {
 
     public static int DRIVER_CONTROLLER1 = 0;
     public static int DRIVER_CONTROLLER2 = 1;
+
+
+//auto stuff
+    public static final double BALCINGKP = 0.4d;
+    public static final double BALCINGKI = 0.15d;
+    public static final double BALCINGKD = 0.0d;
 
 }

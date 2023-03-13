@@ -4,17 +4,15 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.ADIS16470_IMU;//idk if we have this kind but we can hope
+import edu.wpi.first.wpilibj.ADIS16470_IMU;//we will figure this out later
 
 public class MaybeAnAuto extends CommandBase {
   private boolean balacing = false;
-  private final double KP = 0.4;//add this stuff to the constants file later
-  private final double KI = 0.15;
-  private final double KD = 0;
-  private PIDController pid = new PIDController(KP, KI, KD);
+  private PIDController pid = new PIDController(Constants.BALCINGKP, Constants.BALCINGKI, Constants.BALCINGKD);
   private ADIS16470_IMU gyro;
   private double startAngle = 0;
 

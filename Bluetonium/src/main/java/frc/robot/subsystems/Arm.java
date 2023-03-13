@@ -8,6 +8,7 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public CANSparkMax arm = null;
   public CANSparkMax feed = null;
+  
   public Arm() {
     arm = new CANSparkMax(Constants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(Constants.FEED_MOTOR, MotorType.kBrushless);
