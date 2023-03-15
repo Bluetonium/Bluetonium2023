@@ -29,6 +29,13 @@ public class ArmCommand extends CommandBase {
       RobotContainer.m_arm.feedSpeed(0);
       }
     }
+    if(RobotContainer.driverController1.getYButton()) {
+      RobotContainer.m_arm.Color("CONE");
+    } else if(RobotContainer.driverController1.getBButton()) {
+      RobotContainer.m_arm.Color("CUBE");
+    } else if(RobotContainer.driverController1.getXButton()) {
+      RobotContainer.m_arm.Color("NONE");
+    }
   }
 
   @Override
