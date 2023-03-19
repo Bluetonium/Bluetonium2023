@@ -13,6 +13,9 @@
 
 MPU6050 mpu(Wire);
 String serialData;
+char input = 'a';
+double ang = 0.0;
+long timer = 0;
 
 CRGB leds[NUM_LEDS];
 
@@ -27,8 +30,8 @@ void setLeds(int r, int g, int b)
 void setup()
 {
   FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
-  Serial.begin(9600);
-  Serial.println("Starting");
+  Serial.begin(115200);
+  Serial.println("starting");
   Wire.begin();
   byte status = mpu.begin();
   if (status != 0)
@@ -41,37 +44,32 @@ void setup()
   else
   {
     setLeds(0, 255, 0);
-    delay(500);
-    setLeds(0, 0, 0);
-  }
-}
-
-void serialEvent()
-{
-  serialData = Serial.readString();
-  if (serialData == "CONE\n")
-  {
-    setLeds(255, 255, 0);
-  }
-  else if (serialData == "CUBE\n")
-  {
-    setLeds(148, 0, 211);
-  }
-  else if (serialData == "NONE\n")
-  {
-    setLeds(0, 0, 0);
-  }
-  else if (serialData == "GETPITCH\n")
-  {
-    Serial.println(mpu.getAngleY());
-  }
-  else
-  {
-    Serial.println("Unknown : " + serialData);
   }
 }
 
 void loop()
 {
+
+  if (millis() - timer > 100) {
+    ang = mpu.getAngleY();
+    timer = millis();
+  }
+  input = Serial.read();
+
+  switch (input) {
+    case 'y':
+      setLeds(255, 255, 0);
+      break;
+    case 'p':
+      setLeds(148, 0, 211);
+      break;
+    case 'n':
+      setLeds(0, 0, 0);
+      break;
+    case 'g':
+      Serial.println(ang);
+      break;
+  }
   mpu.update();
+
 }

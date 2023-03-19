@@ -1,36 +1,43 @@
 package frc.robot.commands;
 
-import frc.robot.Constants;
+//import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.math.controller.PIDController;
+//import edu.wpi.first.math.controller.PIDController;
 import frc.robot.RobotContainer;
 import java.lang.Double;
 
 public class MaybeAnAuto extends CommandBase {
-  private boolean balacing = false;
-  private PIDController pid = new PIDController(Constants.BALCINGKP, Constants.BALCINGKI, Constants.BALCINGKD);
-  private double startAngle = 0;
+  
+  //private boolean balacing = false;
+  //private PIDController pid = null;
+
+  //private double startAngle = 0;
 
 
   public MaybeAnAuto() {
     addRequirements(RobotContainer.m_drivetrain);
   }
   private double getPitch() {
-    RobotContainer.arduino.writeString("GETPITCH");
-    String response = RobotContainer.arduino.readString();
-    return Double.parseDouble(response);
+    try {
+    String response = RobotContainer.arduino.readString().replace("\n","");
+   return Double.parseDouble(response);
+    } catch(Exception e) {
+      System.out.println("Something happened " + e.getMessage());
+      return 0.0;
+    }
   }
 
   @Override
   public void initialize() {
-    RobotContainer.arduino.writeString("GETPITCH");
-
-
-    startAngle = getPitch();
+    //pid =  new PIDController(Constants.BALCINGKP, Constants.BALCINGKI, Constants.BALCINGKD);
+    System.out.println("Starting the auto ig");
+    //startAngle = getPitch();
   }
 
   @Override
   public void execute() {
+    System.out.println("Pitch " + getPitch());
+    /* 
     if (!balacing) {
       if (Math.abs(startAngle - getPitch()) > 10) {
         balacing = true;
@@ -50,6 +57,7 @@ public class MaybeAnAuto extends CommandBase {
         RobotContainer.m_drivetrain.arDrive(0, drivePower);
       }
     }
+    */
   }
 
   // Called once the command ends or is interrupted.

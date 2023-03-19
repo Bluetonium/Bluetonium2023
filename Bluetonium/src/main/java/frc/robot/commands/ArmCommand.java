@@ -30,11 +30,11 @@ public class ArmCommand extends CommandBase {
       }
     }
     if(RobotContainer.driverController1.getYButton()) {
-      RobotContainer.m_arm.Color("CONE");
+      RobotContainer.m_arm.Color("y");
     } else if(RobotContainer.driverController1.getBButton()) {
-      RobotContainer.m_arm.Color("CUBE");
+      RobotContainer.m_arm.Color("p");
     } else if(RobotContainer.driverController1.getXButton()) {
-      RobotContainer.m_arm.Color("NONE");
+      RobotContainer.m_arm.Color("n");
     }
   }
 
