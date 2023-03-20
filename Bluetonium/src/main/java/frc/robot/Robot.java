@@ -9,48 +9,53 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
   @Override
   public void robotInit() {
     try {
       RobotContainer.arduino = new SerialPort(115200, SerialPort.Port.kUSB1);
       RobotContainer.arduino.setTimeout(0.5);
       boolean connected = false;
-      while(!connected){
-      RobotContainer.arduino.writeString("s");
-      String output = RobotContainer.arduino.readString().replace("\n","");
-      if(output.equals("connected!")) {
-        connected = true;
+      while (!connected) {
+        RobotContainer.arduino.writeString("s");
+        String output = RobotContainer.arduino.readString().replace("\n", "");
+        if (output.equals("connected!")) {
+          connected = true;
+        }
       }
-      }
-    } catch(Exception e) {
+    } catch (Exception e) {
       RobotContainer.arduino = null;
-      System.out.println("No arduino found : " + e.getMessage());
+      System.out.println("ERROR : " + e.getMessage());
     }
     m_robotContainer = new RobotContainer();
   }
- 
+
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  /**
+   * This autonomous runs the autonomous command selected by your
+   * {@link RobotContainer} class.
+   */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-      
+
   }
 
   /** This function is called periodically during autonomous. */
@@ -77,5 +82,6 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }

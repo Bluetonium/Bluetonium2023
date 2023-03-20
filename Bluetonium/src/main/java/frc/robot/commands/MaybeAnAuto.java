@@ -7,23 +7,23 @@ import frc.robot.RobotContainer;
 import java.lang.Double;
 
 public class MaybeAnAuto extends CommandBase {
-  
+
   private boolean balacing = false;
   private PIDController pid = null;
 
   private double startAngle = 0;
   private double currentAngle = 0.0;
 
-
   public MaybeAnAuto() {
     addRequirements(RobotContainer.m_drivetrain);
   }
+
   private double getPitch() {
     try {
       RobotContainer.arduino.writeString("g");
-    String response = RobotContainer.arduino.readString().replace("\n","");
-   return Double.parseDouble(response);
-    } catch(Exception e) {
+      String response = RobotContainer.arduino.readString().replace("\n", "");
+      return Double.parseDouble(response);
+    } catch (Exception e) {
       System.out.println("ERROR : " + e.getMessage());
       return currentAngle;
     }
@@ -31,19 +31,18 @@ public class MaybeAnAuto extends CommandBase {
 
   @Override
   public void initialize() {
-    //pid =  new PIDController(Constants.BALCINGKP, Constants.BALCINGKI, Constants.BALCINGKD);
-    System.out.println("Starting the auto ig");
     startAngle = getPitch();
     currentAngle = startAngle;
   }
 
   @Override
   public void execute() {
-    currentAngle = getPitch();
-    if(RobotContainer.arduino == null) {
+    if (RobotContainer.arduino == null) {
       RobotContainer.m_drivetrain.arDrive(0, 0);
       return;
-    }  
+    }
+
+    currentAngle = getPitch();
     if (!balacing) {
       System.out.println("Angle " + currentAngle);
       if (Math.abs(startAngle - currentAngle) > 10) {
@@ -51,7 +50,7 @@ public class MaybeAnAuto extends CommandBase {
       }
       RobotContainer.m_drivetrain.arDrive(0, -0.5);
     } else {
-     
+
       double error = currentAngle;
       System.out.println("Error " + error);
       double pidOut = pid.calculate(error, 0);
@@ -66,7 +65,7 @@ public class MaybeAnAuto extends CommandBase {
         RobotContainer.m_drivetrain.arDrive(0, drivePower);
       }
     }
-    
+
   }
 
   // Called once the command ends or is interrupted.
