@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -10,6 +11,21 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   @Override
   public void robotInit() {
+    try {
+      RobotContainer.arduino = new SerialPort(115200, SerialPort.Port.kUSB1);
+      RobotContainer.arduino.setTimeout(0.5);
+      boolean connected = false;
+      while(!connected){
+      RobotContainer.arduino.writeString("s");
+      String output = RobotContainer.arduino.readString().replace("\n","");
+      if(output.equals("connected!")) {
+        connected = true;
+      }
+      }
+    } catch(Exception e) {
+      RobotContainer.arduino = null;
+      System.out.println("No arduino found : " + e.getMessage());
+    }
     m_robotContainer = new RobotContainer();
   }
  

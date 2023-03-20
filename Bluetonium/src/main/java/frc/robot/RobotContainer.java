@@ -16,7 +16,7 @@ public class RobotContainer {
   public static XboxController driverController1 = new XboxController(Constants.DRIVER_CONTROLLER1);
   public static Joystick driverController2 = new Joystick(Constants.DRIVER_CONTROLLER2);
 
-  public static SerialPort arduino = new SerialPort(9600,SerialPort.Port.kUSB1);
+  public static SerialPort arduino  =null;
 
   public RobotContainer() {
     configureButtonBindings();
@@ -33,7 +33,6 @@ public class RobotContainer {
     if(arduino != null) {
        return new MaybeAnAuto();
     }
-    System.out.println("\n\nwhy the hell is it not finding the arduino\n\n");
     return null;
   }
 }

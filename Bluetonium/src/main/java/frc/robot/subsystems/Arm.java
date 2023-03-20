@@ -29,6 +29,8 @@ public class Arm extends SubsystemBase {
   }
 
   public void Color(String color) {
-    RobotContainer.arduino.writeString(color);
+    if(RobotContainer.arduino != null) {
+      RobotContainer.arduino.writeString(color);
+    }
   }
 }
