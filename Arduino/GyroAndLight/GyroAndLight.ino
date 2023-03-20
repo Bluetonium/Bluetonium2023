@@ -64,7 +64,7 @@ void loop()
     lastCheckedTime = millis();
   }
   input = Serial.read();
-
+if (Serial.available() > 0) {//check that there is atleast 1 bye of data to read
   switch (input) {
     case 'y':
       setLeds(255, 255, 0);
@@ -87,5 +87,6 @@ void loop()
       //do nothing ig
       break;
   }
+}
   mpu.update();
 }
