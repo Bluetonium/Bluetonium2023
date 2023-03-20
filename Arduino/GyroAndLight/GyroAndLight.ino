@@ -1,9 +1,3 @@
-/* Get tilt angles on X and Y, and rotation angle on Z
-   Angles are given in degrees
-
-   License: MIT
-*/
-
 #include "Wire.h"
 #include <MPU6050_light.h>
 #include <FastLED.h>
@@ -12,7 +6,6 @@
 #define NUM_LEDS 100
 
 MPU6050 mpu(Wire);
-String serialData;
 char input = 'a';
 double ang = 0.0;
 long timer = 0;
@@ -43,50 +36,43 @@ void setup()
       delay(500);
       setLeds(0, 0, 0);
       delay(500);
-    };
+    }
   }
 }
 
 void loop()
 {
+  mpu.update();
   if (millis() - timer > 100) {
     ang = mpu.getAngleY();
     timer = millis();
   }
   if (!startedSuccesfully && millis() - lastCheckedTime > 5000) {
-    for (int i = 0; i < 10; i++) {
-      setLeds(255, 0, 0);
-      delay(100);
-      setLeds(0, 0, 0);
-      delay(100);
-    }
+    setLeds(255, 0, 0);
+    delay(100);
     setLeds(0, 0, 0);
     lastCheckedTime = millis();
   }
-  input = Serial.read();
-if (Serial.available() > 0) {//check that there is atleast 1 bye of data to read
-  switch (input) {
-    case 'y':
-      setLeds(255, 255, 0);
-      break;
-    case 'p':
-      setLeds(148, 0, 211);
-      break;
-    case 'n':
-      setLeds(0, 0, 0);
-      break;
-    case 'g':
-      Serial.println(ang);
-      break;
-    case 's':
-      setLeds(0, 255, 0);
-      startedSuccesfully = true;
-      Serial.println("connected!");
-      break;
-    default:
-      //do nothing ig
-      break;
+  if (Serial.available() > 0) {//check that there is atleast 1 bye of data to read
+    input = Serial.read();
+    switch (input) {
+      case 'y':
+        setLeds(255, 255, 0);
+        break;
+      case 'p':
+        setLeds(148, 0, 211);
+        break;
+      case 'n':
+        setLeds(0, 0, 0);
+        break;
+      case 'g':
+        Serial.println(ang);
+        break;
+      case 's':
+        setLeds(0, 255, 0);
+        startedSuccesfully = true;
+        Serial.println("connected!");
+        break;
+    }
   }
-}
-  mpu.update();
 }
