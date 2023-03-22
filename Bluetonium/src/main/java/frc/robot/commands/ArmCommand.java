@@ -25,17 +25,21 @@ public class ArmCommand extends CommandBase {
     } else {
       if (RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_FEEDOUT)) {
         RobotContainer.m_arm.feedSpeed(-direction);
-      } else{
-      RobotContainer.m_arm.feedSpeed(0);
+      } else {
+        RobotContainer.m_arm.feedSpeed(0);
       }
     }
-    if(RobotContainer.driverController1.getYButton()) {
+    if (RobotContainer.driverController1.getYButton()) {
       RobotContainer.m_arm.Color("y");
-    } else if(RobotContainer.driverController1.getBButton()) {
+    } else if (RobotContainer.driverController1.getBButton()) {
       RobotContainer.m_arm.Color("p");
-    } else if(RobotContainer.driverController1.getXButton()) {
+    } else if (RobotContainer.driverController1.getXButton()) {
       RobotContainer.m_arm.Color("n");
-    }
+    } /*
+       * else if (RobotContainer.driverController1.getAButton()) {
+       * RobotContainer.m_arm.Color("w");// uncomment to allow rainbow button
+       * }
+       */
   }
 
   @Override
