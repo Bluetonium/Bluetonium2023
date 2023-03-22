@@ -28,6 +28,10 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER2_FEEDIN = 1;
     public static final int DRIVER_CONTROLLER2_FEEDOUT = 2;
 
+    public static final int DRVIER_CONTROLLER2_YELLOW = 3;
+    public static final int DRIVER_CONTROLLER2_PURPLE = 4;
+    public static final int DRIVER_CONTROLLER2_NONE = 5;
+
     /* auto */
     public static final double BALCINGKP = 0.4d;
     public static final double BALCINGKI = 0.15d;
