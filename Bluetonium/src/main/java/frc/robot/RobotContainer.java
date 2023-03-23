@@ -30,7 +30,7 @@ public class RobotContainer {
     if (arduino != null) {
       return new MaybeAnAuto();
     }
-    System.out.println("ERROR : arduino not found, autonomous may not be possible");// change this later when we get
+    System.out.println("ERROR : arduino not found");// change this later when we get
                                                                                     // encoders
     // and can do more than park
     return null;

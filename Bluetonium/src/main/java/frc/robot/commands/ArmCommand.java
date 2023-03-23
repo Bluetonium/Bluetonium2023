@@ -5,7 +5,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class ArmCommand extends CommandBase {
-  private static final int direction = 1;// add/remove a negative to change the direction
+  private static final int direction = 1;// its the direction ig
 
   public ArmCommand() {
     addRequirements(RobotContainer.m_arm);

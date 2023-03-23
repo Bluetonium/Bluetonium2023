@@ -13,7 +13,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     try {
-      RobotContainer.arduino = new SerialPort(115200, SerialPort.Port.kUSB1);
+      RobotContainer.arduino = new SerialPort(115200, Constants.ARDUINO_PORT);
       RobotContainer.arduino.setTimeout(0.5);
       boolean connected = false;
       while (!connected) {

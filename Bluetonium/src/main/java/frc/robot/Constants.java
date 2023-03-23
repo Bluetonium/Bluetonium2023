@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+
 public final class Constants {
     /* Motors */
 
@@ -33,8 +36,11 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER2_NONE = 5;
 
     /* auto */
-    public static final double BALCINGKP = 0.4d;
+    public static final double BALCINGKP = 0.4d;// we will need to change these later as its more of less just guessing
     public static final double BALCINGKI = 0.15d;
     public static final double BALCINGKD = 0.0d;
+
+    //Misic
+    public static final Port ARDUINO_PORT  = SerialPort.Port.kUSB1;
 
 }
