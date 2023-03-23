@@ -15,8 +15,8 @@ public class DriveCommands extends CommandBase {
 
   @Override
   public void execute() {
-    double moveSpeed = RobotContainer.driverController1.getRightX();
-    double rotateSpeed = RobotContainer.driverController1.getLeftY();
+    double moveSpeed = RobotContainer.driverController1.getRightY();
+    double rotateSpeed = RobotContainer.driverController1.getLeftX();
     RobotContainer.m_drivetrain.arDrive(rotateSpeed, moveSpeed);
   }
 

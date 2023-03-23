@@ -10,7 +10,7 @@ char input = 'a';
 double ang = 0.0;
 long timer = 0;
 bool startedSuccesfully = false;
-long lastCheckedTime = 0;
+long lastCheckedTime = 0;       
 
 CRGB leds[NUM_LEDS];
 
