@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.RobotContainer;
 import java.lang.Double;
+import java.lang.NumberFormatException;
 
 public class MaybeAnAuto extends CommandBase {
 
@@ -23,6 +24,9 @@ public class MaybeAnAuto extends CommandBase {
       RobotContainer.arduino.writeString("g");
       String response = RobotContainer.arduino.readString().replace("\n", "");
       return Double.parseDouble(response);
+    } catch(NumberFormatException nfe) {
+      System.out.println("ERROR: number format? (ig it got a invalid character?)");
+      return currentAngle;
     } catch (Exception e) {
       System.out.println("ERROR : " + e.getMessage());
       return currentAngle;
