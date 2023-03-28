@@ -24,7 +24,7 @@ public class MaybeAnAuto extends CommandBase {
       RobotContainer.arduino.writeString("g");
       String response = RobotContainer.arduino.readString().replace("\n", "");
       return Double.parseDouble(response);
-    } catch(NumberFormatException nfe) {
+    } catch (NumberFormatException nfe) {
       System.out.println("ERROR: number format? (ig it got a invalid character?)");
       return currentAngle;
     } catch (Exception e) {
@@ -52,7 +52,8 @@ public class MaybeAnAuto extends CommandBase {
       if (Math.abs(startAngle - currentAngle) > 10) {
         balacing = true;
       }
-      RobotContainer.m_drivetrain.arDrive(0, -0.5);
+      // RobotContainer.m_drivetrain.arDrive(0, -0.5);
+      System.out.println("moving backwards " + currentAngle);
     } else {
 
       double error = currentAngle;
@@ -66,7 +67,8 @@ public class MaybeAnAuto extends CommandBase {
         drivePower = Math.copySign(0.22, drivePower);
       }
       if (!(-2 < error && error < 2)) {
-        RobotContainer.m_drivetrain.arDrive(0, drivePower);
+        // RobotContainer.m_drivetrain.arDrive(0, drivePower);
+        System.out.printf("Balencing angle %.2f drive power %.2f", currentAngle, drivePower);
       }
     }
 

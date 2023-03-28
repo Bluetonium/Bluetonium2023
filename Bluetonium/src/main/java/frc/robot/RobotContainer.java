@@ -6,6 +6,8 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;;
 
 public class RobotContainer {
 
@@ -15,6 +17,8 @@ public class RobotContainer {
   public static XboxController driverController1 = new XboxController(Constants.DRIVER_CONTROLLER1);
   public static Joystick driverController2 = new Joystick(Constants.DRIVER_CONTROLLER2);
 
+  public static AddressableLED m_led = new AddressableLED(Constants.LED_PWM_PORT);
+  public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(Constants.NUMBER_OF_LEDS);
   public static SerialPort arduino = null;
 
   public RobotContainer() {
@@ -30,9 +34,7 @@ public class RobotContainer {
     if (arduino != null) {
       return new MaybeAnAuto();
     }
-    System.out.println("ERROR : arduino not found");// change this later when we get
-                                                                                    // encoders
-    // and can do more than park
+    System.out.println("ERROR : arduino not found");// change this later when we get encoders
     return null;
   }
 }

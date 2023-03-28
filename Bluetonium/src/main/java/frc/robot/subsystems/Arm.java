@@ -11,6 +11,8 @@ public class Arm extends SubsystemBase {
   public CANSparkMax arm = null;
   public CANSparkMax feed = null;
 
+  public int firstHueValue = 0;
+
   public Arm() {
     arm = new CANSparkMax(Constants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(Constants.FEED_MOTOR, MotorType.kBrushless);
@@ -28,9 +30,50 @@ public class Arm extends SubsystemBase {
     feed.set(speed);
   }
 
-  public void Color(String color) {
-    if(RobotContainer.arduino != null) {
-      RobotContainer.arduino.writeString(color);
+  public void Color(char color) {
+    Short r;
+    short g;
+    short b;
+    switch (color) {
+      case 'y':
+        r = 255;
+        g = 255;
+        b = 0;
+        break;
+      case 'p':
+        r = 160;
+        g = 32;
+        b = 240;
+        break;
+      case 'n':
+        r = 0;
+        g = 0;
+        b = 0;
+        break;
+      case 's':
+        r = 0;
+        g = 255;
+        b = 255;
+        break;
+      default:
+        r = 0;
+        g = 0;
+        b = 0;
+        break;
     }
+    for (int i = 0; i < Constants.NUMBER_OF_LEDS; i++) {
+      RobotContainer.m_ledBuffer.setRGB(i, r, g, b);
+    }
+  }
+
+  // they call me Mr.Comedy
+  public void rainbow() {
+    for (var i = 0; i < RobotContainer.m_ledBuffer.getLength(); i++) {
+      final var hue = (firstHueValue + (i * 180 / RobotContainer.m_ledBuffer.getLength())) % 180;
+      RobotContainer.m_ledBuffer.setHSV(i, hue, 255, 128);
+    }
+
+    firstHueValue += 3;
+    firstHueValue %= 180;
   }
 }

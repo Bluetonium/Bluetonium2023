@@ -40,7 +40,9 @@ public final class Constants {
     public static final double BALCINGKI = 0.15d;
     public static final double BALCINGKD = 0.0d;
 
-    //Misic
-    public static final Port ARDUINO_PORT  = SerialPort.Port.kUSB1;
+    // Misic
+    public static final Port ARDUINO_PORT = SerialPort.Port.kMXP;
+    public static final int LED_PWM_PORT = 1;
+    public static final int NUMBER_OF_LEDS = 144;// change later bc tbh i dont really know
 
 }

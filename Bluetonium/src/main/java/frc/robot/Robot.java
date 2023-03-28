@@ -14,19 +14,15 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     try {
       RobotContainer.arduino = new SerialPort(115200, Constants.ARDUINO_PORT);
-      RobotContainer.arduino.setTimeout(0.5);
-      boolean connected = false;
-      while (!connected) {
-        RobotContainer.arduino.writeString("s");
-        String output = RobotContainer.arduino.readString().replace("\n", "");
-        if (output.equals("connected!")) {
-          connected = true;
-        }
-      }
     } catch (Exception e) {
       RobotContainer.arduino = null;
       System.out.println("ERROR : " + e.getMessage());
     }
+
+    RobotContainer.m_led.setLength(RobotContainer.m_ledBuffer.getLength());
+    RobotContainer.m_arm.Color('s');
+    RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);// i think i only need to do this once
+    RobotContainer.m_led.start();
     m_robotContainer = new RobotContainer();
   }
 
@@ -50,7 +46,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

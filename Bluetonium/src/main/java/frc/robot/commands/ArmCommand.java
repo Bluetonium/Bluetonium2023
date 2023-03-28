@@ -13,7 +13,7 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    RobotContainer.m_arm.Color("n");
+    RobotContainer.m_arm.Color('n');
   }
 
   @Override
@@ -31,15 +31,15 @@ public class ArmCommand extends CommandBase {
 
     if (RobotContainer.driverController1.getYButton()
         || RobotContainer.driverController2.getRawButton(Constants.DRVIER_CONTROLLER2_YELLOW)) {
-      RobotContainer.m_arm.Color("y");
+      RobotContainer.m_arm.Color('y');
     } else if (RobotContainer.driverController1.getBButton()
         || RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_PURPLE)) {
-      RobotContainer.m_arm.Color("p");
+      RobotContainer.m_arm.Color('p');
     } else if (RobotContainer.driverController1.getXButton()
         || RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_NONE)) {
-      RobotContainer.m_arm.Color("n");
+      RobotContainer.m_arm.Color('n');
     } else if (RobotContainer.driverController2.getRawButton(10)) {
-      RobotContainer.m_arm.Color("w");
+      RobotContainer.m_arm.Color('w');
     }
   }
 
