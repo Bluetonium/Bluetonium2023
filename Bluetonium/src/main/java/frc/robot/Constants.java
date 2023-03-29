@@ -31,7 +31,7 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER2_FEEDIN = 1;
     public static final int DRIVER_CONTROLLER2_FEEDOUT = 2;
 
-    public static final double DRIVER_MINIMUM_SPEED = 0.3;
+    public static final double DRIVER_MINIMUM_SPEED = 0.1;
 
     public static final int DRVIER_CONTROLLER2_YELLOW = 3;
     public static final int DRIVER_CONTROLLER2_PURPLE = 4;
