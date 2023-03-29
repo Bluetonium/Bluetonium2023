@@ -31,6 +31,8 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER2_FEEDIN = 1;
     public static final int DRIVER_CONTROLLER2_FEEDOUT = 2;
 
+    public static final double DRIVER_MINIMUM_SPEED = 0.3;
+
     public static final int DRVIER_CONTROLLER2_YELLOW = 3;
     public static final int DRIVER_CONTROLLER2_PURPLE = 4;
     public static final int DRIVER_CONTROLLER2_NONE = 5;
@@ -42,7 +44,7 @@ public final class Constants {
 
     // Misic
     public static final Port ARDUINO_PORT = SerialPort.Port.kMXP;
-    public static final int LED_PWM_PORT = 1;
+    public static final int LED_PWM_PORT = 0;
     public static final int NUMBER_OF_LEDS = 144;// change later bc tbh i dont really know
 
 }
