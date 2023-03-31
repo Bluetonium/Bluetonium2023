@@ -15,12 +15,13 @@ public class RobotContainer {
   public static final Arm m_arm = new Arm();
 
   public static XboxController driverController1 = new XboxController(Constants.DRIVER_CONTROLLER1);
-  public static Joystick driverController2 = new Joystick(Constants.DRIVER_CONTROLLER2);
+  // public static Joystick driverController2 = new
+  // Joystick(Constants.DRIVER_CONTROLLER2);
+  public static XboxController driverController2 = new XboxController(Constants.DRIVER_CONTROLLER2);
 
   public static AddressableLED m_led = new AddressableLED(Constants.LED_PWM_PORT);
   public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(Constants.NUMBER_OF_LEDS);
   public static SerialPort arduino = null;
-
 
   public RobotContainer() {
     configureButtonBindings();

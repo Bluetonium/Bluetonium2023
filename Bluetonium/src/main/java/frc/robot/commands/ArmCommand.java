@@ -5,7 +5,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class ArmCommand extends CommandBase {
-  private static final int direction = 1;// its the direction ig
 
   public ArmCommand() {
     addRequirements(RobotContainer.m_arm);
@@ -18,31 +17,23 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double speed = RobotContainer.driverController2.getRawAxis(Constants.DRIVER_CONTROLLER2_ARMMOTOR) / 2;
+    double speed = RobotContainer.driverController2.getLeftY();
     if (Math.abs(speed) >= Constants.DRIVER_MINIMUM_SPEED) {
-      RobotContainer.m_arm.armSpeed(speed);
+      RobotContainer.m_arm.armSpeed(speed / 2);
     } else {
       RobotContainer.m_arm.armSpeed(0);
     }
 
-    if (RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_FEEDIN)) {
-      RobotContainer.m_arm.feedSpeed(direction);
-    } else if (RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_FEEDOUT)) {
-      RobotContainer.m_arm.feedSpeed(-direction);
-    } else {
-      RobotContainer.m_arm.feedSpeed(0);
-    }
+    RobotContainer.m_arm.feedSpeed(
+        RobotContainer.driverController2.getLeftTriggerAxis() - RobotContainer.driverController2.getRightTriggerAxis());
 
-    if (RobotContainer.driverController1.getYButton()
-        || RobotContainer.driverController2.getRawButton(Constants.DRVIER_CONTROLLER2_YELLOW)) {
+    if (RobotContainer.driverController2.getYButton()) {
       RobotContainer.m_arm.Color('y');
-    } else if (RobotContainer.driverController1.getBButton()
-        || RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_PURPLE)) {
+    } else if (RobotContainer.driverController2.getAButton()) {
       RobotContainer.m_arm.Color('p');
-    } else if (RobotContainer.driverController1.getXButton()
-        || RobotContainer.driverController2.getRawButton(Constants.DRIVER_CONTROLLER2_NONE)) {
+    } else if (RobotContainer.driverController2.getXButton()) {
       RobotContainer.m_arm.Color('n');
-    } else if (RobotContainer.driverController2.getRawButton(10)) {
+    } else if (RobotContainer.driverController2.getBButton()) {
       RobotContainer.m_arm.rainbow();
     }
   }

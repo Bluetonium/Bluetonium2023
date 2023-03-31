@@ -1,9 +1,12 @@
 package frc.robot.commands;
 
 import frc.robot.*;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveCommands extends CommandBase {
+  private static double currentMoveSpeed = 0;
+
   public DriveCommands() {
     addRequirements(RobotContainer.m_drivetrain);
   }
@@ -15,9 +18,19 @@ public class DriveCommands extends CommandBase {
 
   @Override
   public void execute() {
-    double moveSpeed = RobotContainer.driverController1.getRightY();
-    double rotateSpeed = RobotContainer.driverController1.getLeftX();
-    RobotContainer.m_drivetrain.arDrive(rotateSpeed, moveSpeed);
+    double slowY = RobotContainer.driverController1.getLeftY() / 4;
+    double slowX = RobotContainer.driverController1.getLeftX() / 4;
+
+    double targetSpeed = (slowY != 0) ? slowY : RobotContainer.driverController1.getRightY();
+    if (Math.abs(targetSpeed) < 0.1) {
+      currentMoveSpeed = 0;
+    } else {
+      currentMoveSpeed += Math.copySign(Constants.DRIVETRAIN_RAMP_UP_SPEED, targetSpeed - currentMoveSpeed);
+    }
+
+    double rotateSpeed = (slowX != 0) ? slowX : RobotContainer.driverController1.getRightX();
+
+    RobotContainer.m_drivetrain.arDrive(rotateSpeed, currentMoveSpeed);
   }
 
   @Override
