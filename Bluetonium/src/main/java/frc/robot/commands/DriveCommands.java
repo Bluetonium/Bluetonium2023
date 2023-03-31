@@ -18,10 +18,10 @@ public class DriveCommands extends CommandBase {
 
   @Override
   public void execute() {
-    double slowY = RobotContainer.driverController1.getLeftY() / 4;
-    double slowX = RobotContainer.driverController1.getLeftX() / 4;
+    double slowY = RobotContainer.driverController1.getLeftY() / 2;
+    double slowX = RobotContainer.driverController1.getLeftX() / 2;
 
-    double targetSpeed = (slowY != 0) ? slowY : RobotContainer.driverController1.getRightY();
+    double targetSpeed = (Math.abs(slowY) > 0.1) ? slowY : RobotContainer.driverController1.getRightY();
     if (Math.abs(targetSpeed) < 0.1) {
       currentMoveSpeed = 0;
     } else {

@@ -12,6 +12,8 @@ public final class Constants {
     public static final int DRIVETRAIN_RIGHT_FRONT = 1;
     public static final int DRIVETRAIN_RIGHT_BACK = 4;
 
+    public static final double DRIVETRAIN_RAMP_UP_SPEED = 0.2d;
+
     // arm/feed
     public static final int ARM_MOTOR = 5;
     public static final int FEED_MOTOR = 6;
