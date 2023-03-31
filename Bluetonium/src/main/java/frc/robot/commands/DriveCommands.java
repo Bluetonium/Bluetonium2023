@@ -28,7 +28,7 @@ public class DriveCommands extends CommandBase {
       currentMoveSpeed += Math.copySign(Constants.DRIVETRAIN_RAMP_UP_SPEED, targetSpeed - currentMoveSpeed);
     }
 
-    double rotateSpeed = (slowX != 0) ? slowX : RobotContainer.driverController1.getRightX();
+    double rotateSpeed = (Math.abs(slowY) > 0.1) ? slowX : RobotContainer.driverController1.getRightX();
 
     RobotContainer.m_drivetrain.arDrive(rotateSpeed, currentMoveSpeed);
   }

@@ -24,6 +24,9 @@ public class Robot extends TimedRobot {
     RobotContainer.m_arm.Color('s');
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);// i think i only need to do this once
     RobotContainer.m_led.start();
+
+    CameraServer.startAutomaticCapture();//
+    
     m_robotContainer = new RobotContainer();
   }
 
@@ -65,7 +68,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    CameraServer.startAutomaticCapture();// if this doesnt work uncomment bellow and see if it works
+    
 
   }
 

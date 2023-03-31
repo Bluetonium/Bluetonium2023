@@ -11,20 +11,32 @@ public class Arm extends SubsystemBase {
 
   public CANSparkMax arm = null;
   public CANSparkMax feed = null;
+  public CANSparkMax miniArm = null;
+  public CANSparkMax miniFeed = null;
 
   public int firstHueValue = 0;
 
   public Arm() {
     arm = new CANSparkMax(Constants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(Constants.FEED_MOTOR, MotorType.kBrushless);
+    miniArm = new CANSparkMax(Constants.MINI_ARM_MOTOR, MotorType.kBrushless);
+    miniFeed = new CANSparkMax(Constants.MINI_FEED_MOTOR, MotorType.kBrushless);
   }
 
   @Override
   public void periodic() {
   }
 
-  public void armSpeed(double speed) {
+  public void mainArmSpeed(double speed) {
     arm.set(speed);
+  }
+
+  public void miniArmSpeed(double speed) {
+    miniArm.set(speed);
+  }
+
+  public void miniFeedSpeed(double speed) {
+    miniFeed.set(speed);
   }
 
   public void feedSpeed(double speed) {

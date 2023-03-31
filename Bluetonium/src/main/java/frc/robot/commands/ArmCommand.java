@@ -17,15 +17,26 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void execute() {
-    double speed = RobotContainer.driverController2.getLeftY();
-    if (Math.abs(speed) >= Constants.DRIVER_MINIMUM_SPEED) {
-      RobotContainer.m_arm.armSpeed(speed / 2);
+    double speedArm = RobotContainer.driverController2.getLeftY();
+    if (Math.abs(speedArm) >= Constants.DRIVER_MINIMUM_SPEED) {
+      RobotContainer.m_arm.mainArmSpeed(speedArm / 2);
     } else {
-      RobotContainer.m_arm.armSpeed(0);
+      RobotContainer.m_arm.mainArmSpeed(0);
     }
 
+    double miniArm = RobotContainer.driverController2.getRightY();
+    double miniFeed = (RobotContainer.driverController2.getLeftBumper()) ? 1 : 0;
+    miniFeed = (RobotContainer.driverController2.getRightBumper()) ? -1 : 0;
+    RobotContainer.m_arm.miniFeedSpeed(miniFeed);
+
+    if (Math.abs(miniArm) > Constants.DRIVER_MINIMUM_SPEED) {
+      RobotContainer.m_arm.miniArmSpeed(miniArm);
+    } else {
+      RobotContainer.m_arm.miniArmSpeed(0);
+    }
     RobotContainer.m_arm.feedSpeed(
-        RobotContainer.driverController2.getLeftTriggerAxis() - RobotContainer.driverController2.getRightTriggerAxis());
+        Math.pow(RobotContainer.driverController2.getLeftTriggerAxis()
+            - RobotContainer.driverController2.getRightTriggerAxis(), 3));
 
     if (RobotContainer.driverController2.getYButton()) {
       RobotContainer.m_arm.Color('y');
