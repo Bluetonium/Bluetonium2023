@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
     RobotContainer.m_led.start();
 
     CameraServer.startAutomaticCapture();//
-    
+
     m_robotContainer = new RobotContainer();
   }
 
@@ -68,7 +68,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    
 
   }
 

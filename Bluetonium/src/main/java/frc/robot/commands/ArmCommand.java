@@ -24,25 +24,36 @@ public class ArmCommand extends CommandBase {
       RobotContainer.m_arm.mainArmSpeed(0);
     }
 
-    double miniArm = RobotContainer.driverController2.getRightY();
-    double miniFeed = (RobotContainer.driverController2.getLeftBumper()) ? 1 : 0;
-    miniFeed = (RobotContainer.driverController2.getRightBumper()) ? -1 : 0;
+    double miniFeed = 0;
+    boolean miniFeedOut = RobotContainer.driverController2.getRightBumper();
+
+    if (RobotContainer.driverController2.getLeftBumper()) {
+      miniFeed = 0.7;// also check that this is going to feedout, who knows
+    } else if (miniFeedOut) {
+      miniFeed = -0.7;
+    } else {
+      miniFeed = 0;
+    }
+
     RobotContainer.m_arm.miniFeedSpeed(miniFeed);
 
+    double miniArm = RobotContainer.driverController2.getRightY();
     if (Math.abs(miniArm) > Constants.DRIVER_MINIMUM_SPEED) {
       RobotContainer.m_arm.miniArmSpeed(miniArm);
     } else {
       RobotContainer.m_arm.miniArmSpeed(0);
     }
 
-    if (Math.abs(miniArm) > Constants.DRIVER_MINIMUM_SPEED && miniArm > 0) {
-      RobotContainer.m_arm.feedSpeed(-0.25);
+    if (miniFeedOut) {
+      RobotContainer.m_arm.feedSpeed(-0.25);// idk check if this is feed in but
+      // like idk
     } else {
       RobotContainer.m_arm.feedSpeed(
           Math.pow(RobotContainer.driverController2.getLeftTriggerAxis()
-              - RobotContainer.driverController2.getRightTriggerAxis(), 3));
+              - RobotContainer.driverController2.getRightTriggerAxis() / 3, 3));// fancy logic moment
     }
 
+    // colors, colors everywhere
     if (RobotContainer.driverController2.getYButton()) {
       RobotContainer.m_arm.Color('y');
     } else if (RobotContainer.driverController2.getAButton()) {
