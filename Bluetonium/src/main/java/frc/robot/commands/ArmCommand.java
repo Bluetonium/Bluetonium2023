@@ -34,9 +34,14 @@ public class ArmCommand extends CommandBase {
     } else {
       RobotContainer.m_arm.miniArmSpeed(0);
     }
-    RobotContainer.m_arm.feedSpeed(
-        Math.pow(RobotContainer.driverController2.getLeftTriggerAxis()
-            - RobotContainer.driverController2.getRightTriggerAxis(), 3));
+
+    if (Math.abs(miniArm) > Constants.DRIVER_MINIMUM_SPEED && miniArm > 0) {
+      RobotContainer.m_arm.feedSpeed(-0.25);
+    } else {
+      RobotContainer.m_arm.feedSpeed(
+          Math.pow(RobotContainer.driverController2.getLeftTriggerAxis()
+              - RobotContainer.driverController2.getRightTriggerAxis(), 3));
+    }
 
     if (RobotContainer.driverController2.getYButton()) {
       RobotContainer.m_arm.Color('y');
