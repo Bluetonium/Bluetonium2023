@@ -19,8 +19,8 @@ public class Arm extends SubsystemBase {
   public Arm() {
     arm = new CANSparkMax(Constants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(Constants.FEED_MOTOR, MotorType.kBrushless);
-    // miniArm = new CANSparkMax(Constants.MINI_ARM_MOTOR, MotorType.kBrushless);
-    // miniFeed = new CANSparkMax(Constants.MINI_FEED_MOTOR, MotorType.kBrushless);
+    miniArm = new CANSparkMax(Constants.MINI_ARM_MOTOR, MotorType.kBrushless);
+    miniFeed = new CANSparkMax(Constants.MINI_FEED_MOTOR, MotorType.kBrushless);
   }
 
   @Override
@@ -32,11 +32,11 @@ public class Arm extends SubsystemBase {
   }
 
   public void miniArmSpeed(double speed) {
-    // miniArm.set(speed);
+    miniArm.set(speed);
   }
 
   public void miniFeedSpeed(double speed) {
-    // miniFeed.set(speed);
+    miniFeed.set(speed);
   }
 
   public void feedSpeed(double speed) {

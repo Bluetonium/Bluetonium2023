@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -13,13 +12,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    try {
-      RobotContainer.arduino = new SerialPort(115200, Constants.ARDUINO_PORT);
-    } catch (Exception e) {
-      RobotContainer.arduino = null;
-      System.out.println("ERROR : " + e.getMessage());
-    }
-
     RobotContainer.m_led.setLength(RobotContainer.m_ledBuffer.getLength());
     RobotContainer.m_arm.Color('s');
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);// i think i only need to do this once

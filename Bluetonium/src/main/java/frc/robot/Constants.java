@@ -1,8 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
-
 public final class Constants {
     /* Motors */
 
@@ -48,7 +45,6 @@ public final class Constants {
     public static final double BALCINGKD = 0.0d;
 
     // Misic
-    public static final Port ARDUINO_PORT = SerialPort.Port.kUSB2;
     public static final int LED_PWM_PORT = 0;
     public static final int NUMBER_OF_LEDS = 93;// change later bc tbh i dont really know
 

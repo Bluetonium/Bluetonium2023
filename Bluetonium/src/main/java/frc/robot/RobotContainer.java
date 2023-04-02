@@ -14,8 +14,6 @@ public class RobotContainer {
   public static final Arm m_arm = new Arm();
 
   public static XboxController driverController1 = new XboxController(Constants.DRIVER_CONTROLLER1);
-  // public static Joystick driverController2 = new
-  // Joystick(Constants.DRIVER_CONTROLLER2);
   public static XboxController driverController2 = new XboxController(Constants.DRIVER_CONTROLLER2);
 
   public static AddressableLED m_led = new AddressableLED(Constants.LED_PWM_PORT);
@@ -32,10 +30,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    if (arduino != null) {
-      return new MaybeAnAuto();
-    }
-    System.out.println("ERROR : arduino not found");// change this later when we get encoders
-    return null;
+    return new MaybeAnAuto();
   }
 }
