@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class ArmCommand extends CommandBase {
   private double miniArmOffset = 0;
@@ -30,14 +31,22 @@ public class ArmCommand extends CommandBase {
     boolean miniFeedOut = RobotContainer.driverController2.getRightBumper();
 
     if (RobotContainer.driverController2.getLeftBumper()) {
-      miniFeed = 0.5;// also check that this is going to feedout, who knows
-    } else if (miniFeedOut) {
+      if (!RobotContainer.m_arm.stopSwitch.get()) {
+        miniFeed = 0.5;
+      } else {
+        RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 1.0); // STOP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      }
+    } else if (miniFeedOut) { // yeah this feed out heha
       miniFeed = -0.5;
     } else {
       miniFeed = 0;
     }
 
-    RobotContainer.m_arm.miniFeedSpeed(miniFeed);
+    if (RobotContainer.driverController2.getStartButton()) { // override if you care lol
+      miniFeed = 0.5;
+    }
+
+    RobotContainer.m_arm.miniFeedSpeed(miniFeed); // im dumbb!!!!!
 
     double miniArm = RobotContainer.driverController2.getRightY() - miniArmOffset;
     if (Math.abs(miniArm) > Constants.DRIVER_MINIMUM_SPEED) {
@@ -47,7 +56,7 @@ public class ArmCommand extends CommandBase {
     }
 
     if (miniFeedOut) {
-      RobotContainer.m_arm.feedSpeed(0.25);// idk check if this is feed in but
+      RobotContainer.m_arm.feedSpeed(0.25);// idk check if this is feed in but lol
       // like idk
     } else {
       RobotContainer.m_arm.feedSpeed(
@@ -65,6 +74,10 @@ public class ArmCommand extends CommandBase {
     } else if (RobotContainer.driverController2.getBButton()) {
       RobotContainer.m_arm.rainbow();
     }
+
+    // if
+    // wanna rumble nerd?
+    // RobotContainer.driverController1.setRumble(RumbleType.kBothRumble, 1.0);
   }
 
   @Override

@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import frc.robot.utils.BNO055;
 
 public class RobotContainer {
 
@@ -18,7 +18,7 @@ public class RobotContainer {
 
   public static AddressableLED m_led = new AddressableLED(Constants.LED_PWM_PORT);
   public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(Constants.NUMBER_OF_LEDS);
-  public static SerialPort arduino = null;
+  public static BNO055 imu;
 
   public RobotContainer() {
     configureButtonBindings();
