@@ -18,7 +18,7 @@ public class MaybeAnAuto extends CommandBase {
   @Override
   public void execute() {
     if (ticks < 150) {
-      RobotContainer.m_drivetrain.arDrive(0, 0.6);
+      RobotContainer.m_drivetrain.arDrive(0.6, 0);
       ticks++;
     } else {
       RobotContainer.m_drivetrain.arDrive(0, 0);

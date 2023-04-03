@@ -20,11 +20,17 @@ public class DriveCommands extends CommandBase {
     double slowY = RobotContainer.driverController1.getLeftY() * 0.7;
     double slowX = RobotContainer.driverController1.getLeftX() * 0.7;
 
-    double speed = (Math.abs(slowY) > 0.1) ? slowY : RobotContainer.driverController1.getRightY();
+    boolean goingSlow = Math.abs(slowY) > 0.1;
+
+    double speed = goingSlow ? slowY : RobotContainer.driverController1.getRightY();
 
     double rotateSpeed = (Math.abs(slowY) > 0.1) ? slowX : RobotContainer.driverController1.getRightX();
+    if (speed > 0 && goingSlow) {
+      RobotContainer.m_drivetrain.arDrive(speed, -rotateSpeed);
+    } else {
+      RobotContainer.m_drivetrain.arDrive(speed, rotateSpeed);
+    }
 
-    RobotContainer.m_drivetrain.arDrive(rotateSpeed, speed);
   }
 
   @Override
