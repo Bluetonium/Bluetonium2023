@@ -2,12 +2,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class Drivetrain extends SubsystemBase {
   public CANSparkMax frontLeftSpark = null;
@@ -41,10 +40,6 @@ public class Drivetrain extends SubsystemBase {
 
     dDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-  }
-
-  public void rumble(double value) {
-    RobotContainer.driverController1.setRumble(RumbleType.kBothRumble, value);
   }
 
   public void arDrive(double speed, double turnSpeed) {
