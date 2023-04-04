@@ -1,7 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.*;
+import frc.robot.commands.AutoCommands.MaybeAnAuto;
+import frc.robot.commands.ArmCommands.ArmCommand;
+import frc.robot.commands.DriveTrainCommands.DriveCommands;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.AddressableLED;
