@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.Constants.DriveTrainConstants;
+import frc.robot.utils.Constants.DriveTrainConstants;
 
 public class Drivetrain extends SubsystemBase {
   public CANSparkMax frontLeftSpark = null;

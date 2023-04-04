@@ -5,9 +5,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.MiscConstants;
+import frc.robot.utils.Constants.ArmConstants;
+import frc.robot.utils.Constants.MiscConstants;
 import frc.robot.RobotContainer;
+
+import com.revrobotics.RelativeEncoder;
 
 public class Arm extends SubsystemBase {
 
@@ -17,6 +19,8 @@ public class Arm extends SubsystemBase {
   public CANSparkMax miniFeed = null;
   public DigitalInput stopSwitch = null;
 
+  public RelativeEncoder test;
+
   public int firstHueValue = 0;
 
   public Arm() {
@@ -25,6 +29,8 @@ public class Arm extends SubsystemBase {
     miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
     miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
+
+    test = miniFeed.getEncoder();
   }
 
   @Override

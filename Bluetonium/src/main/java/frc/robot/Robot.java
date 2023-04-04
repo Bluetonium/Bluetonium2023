@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
-import frc.robot.utils.BNO055;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -18,12 +17,7 @@ public class Robot extends TimedRobot {
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);// i think i only need to do this once
     RobotContainer.m_led.start();
 
-    CameraServer.startAutomaticCapture();//
-
-    System.out.println("please work");
-    RobotContainer.imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-        BNO055.vector_type_t.VECTOR_EULER);
-    System.out.println("PLEASE : " + RobotContainer.imu.isSensorPresent());
+    CameraServer.startAutomaticCapture();
 
     m_robotContainer = new RobotContainer();
   }

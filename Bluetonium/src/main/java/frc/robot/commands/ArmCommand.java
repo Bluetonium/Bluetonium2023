@@ -3,7 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import frc.robot.Constants.ControllerConstants;
+import frc.robot.utils.Constants.ControllerConstants;
+
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;;
 
 public class ArmCommand extends CommandBase {
   private double miniArmOffset = 0;
@@ -20,6 +22,9 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void execute() {
+
+    System.out.println(RobotContainer.m_arm.test.getPosition());
+
     double speedArm = RobotContainer.driverController2.getLeftY();
     if (Math.abs(speedArm) >= ControllerConstants.DRIVER_MINIMUM_SPEED) {
       RobotContainer.m_arm.mainArmSpeed(speedArm / 2);
