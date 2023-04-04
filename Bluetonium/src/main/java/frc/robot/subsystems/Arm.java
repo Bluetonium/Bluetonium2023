@@ -19,7 +19,7 @@ public class Arm extends SubsystemBase {
   public CANSparkMax miniFeed = null;
   public DigitalInput stopSwitch = null;
 
-  public RelativeEncoder test;
+  public RelativeEncoder miniArmPosition;
 
   public int firstHueValue = 0;
 
@@ -30,7 +30,7 @@ public class Arm extends SubsystemBase {
     miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
 
-    test = miniFeed.getEncoder();
+    miniArmPosition = miniArm.getEncoder();
   }
 
   @Override

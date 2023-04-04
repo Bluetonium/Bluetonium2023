@@ -21,8 +21,6 @@ public class ArmCommand extends CommandBase {
   @Override
   public void execute() {
 
-    System.out.println(RobotContainer.m_arm.test.getPosition());
-
     double speedArm = RobotContainer.driverController2.getLeftY();
     if (Math.abs(speedArm) >= ControllerConstants.DRIVER_MINIMUM_SPEED) {
       RobotContainer.m_arm.mainArmSpeed(speedArm / 2);
