@@ -5,8 +5,6 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.utils.Constants.ControllerConstants;
 
-import com.revrobotics.SparkMaxAbsoluteEncoder.Type;;
-
 public class ArmCommand extends CommandBase {
   private double miniArmOffset = 0;
 
