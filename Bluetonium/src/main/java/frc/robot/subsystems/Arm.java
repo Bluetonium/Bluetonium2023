@@ -3,8 +3,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.MiscConstants;
 import frc.robot.RobotContainer;
 
 public class Arm extends SubsystemBase {
@@ -13,14 +15,16 @@ public class Arm extends SubsystemBase {
   public CANSparkMax feed = null;
   public CANSparkMax miniArm = null;
   public CANSparkMax miniFeed = null;
+  public DigitalInput stopSwitch = null;
 
   public int firstHueValue = 0;
 
   public Arm() {
-    arm = new CANSparkMax(Constants.ARM_MOTOR, MotorType.kBrushless);
-    feed = new CANSparkMax(Constants.FEED_MOTOR, MotorType.kBrushless);
-    miniArm = new CANSparkMax(Constants.MINI_ARM_MOTOR, MotorType.kBrushless);
-    miniFeed = new CANSparkMax(Constants.MINI_FEED_MOTOR, MotorType.kBrushless);
+    arm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
+    feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
+    miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
+    miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
+    stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
   }
 
   @Override
@@ -83,7 +87,7 @@ public class Arm extends SubsystemBase {
     } else {
       System.out.printf("R %f G %f B %f\n", currentR, currentG, currentB);
     }
-    for (int i = 0; i < Constants.NUMBER_OF_LEDS; i++) {
+    for (int i = 0; i < MiscConstants.NUMBER_OF_LEDS; i++) {
       RobotContainer.m_ledBuffer.setRGB(i, r, g, b);
     }
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);

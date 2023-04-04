@@ -1,12 +1,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.Constants.DriveTrainConstants;
 
 public class Drivetrain extends SubsystemBase {
   public CANSparkMax frontLeftSpark = null;
@@ -22,20 +21,19 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
-    frontLeftSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_FRONT, MotorType.kBrushed);
-    backLeftSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_BACK, MotorType.kBrushed);
+    frontLeftSpark = new CANSparkMax(DriveTrainConstants.DRIVETRAIN_LEFT_FRONT, MotorType.kBrushed);
+    backLeftSpark = new CANSparkMax(DriveTrainConstants.DRIVETRAIN_LEFT_BACK, MotorType.kBrushed);
 
     backLeftSpark.follow(frontLeftSpark);
 
-    frontRightSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_FRONT, MotorType.kBrushed);
-    backRightSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_BACK, MotorType.kBrushed);
+    frontRightSpark = new CANSparkMax(DriveTrainConstants.DRIVETRAIN_RIGHT_FRONT, MotorType.kBrushed);
+    backRightSpark = new CANSparkMax(DriveTrainConstants.DRIVETRAIN_RIGHT_BACK, MotorType.kBrushed);
 
     backRightSpark.follow(frontRightSpark);
 
     leftMotors = new MotorControllerGroup(frontLeftSpark, backLeftSpark);
     rightMotors = new MotorControllerGroup(frontRightSpark, backRightSpark);
 
-    // leftMotors.setInverted(true);//make it so forward is forward
     rightMotors.setInverted(true);
 
     dDrive = new DifferentialDrive(leftMotors, rightMotors);
