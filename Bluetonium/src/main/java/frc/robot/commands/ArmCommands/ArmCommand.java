@@ -24,19 +24,14 @@ public class ArmCommand extends CommandBase {
   }
 
   public boolean checkRetracted(RelativeEncoder theThing) {
-    return Math.abs(theThing.getPosition()) < ArmConstants.ARM_RETRACT_TOLLERANCE;
+    return theThing.getPosition() < ArmConstants.ARM_RETRACT_TOLLERANCE;
   }
 
   @Override
   public void execute() {
-
     double speedArm = RobotContainer.driverController2.getLeftY();
     if (Math.abs(speedArm) >= ControllerConstants.DRIVER_MINIMUM_SPEED) {
-      if (checkRetracted(RobotContainer.m_arm.miniArmPosition)) {
-        RobotContainer.m_arm.mainArmSpeed(speedArm / 2);
-      } else {
-        RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 1.0);
-      }
+      RobotContainer.m_arm.mainArmSpeed(speedArm / 2);
     } else {
       RobotContainer.m_arm.mainArmSpeed(0);
     }
@@ -68,11 +63,7 @@ public class ArmCommand extends CommandBase {
 
     double miniArm = RobotContainer.driverController2.getRightY() - miniArmOffset;
     if (Math.abs(miniArm) > ControllerConstants.DRIVER_MINIMUM_SPEED) {
-      if (checkRetracted(RobotContainer.m_arm.mainArmPostion)) {
-        RobotContainer.m_arm.miniArmSpeed(miniArm / 3);
-      } else {
-        RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 1);
-      }
+      RobotContainer.m_arm.miniArmSpeed(miniArm / 3);
     } else {
       RobotContainer.m_arm.miniArmSpeed(0);
     }

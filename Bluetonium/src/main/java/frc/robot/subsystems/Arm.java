@@ -32,7 +32,7 @@ public class Arm extends SubsystemBase {
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
 
     miniArmPosition = miniArm.getEncoder();
-    mainArmPostion = miniArm.getEncoder();
+    mainArmPostion = arm.getEncoder();
   }
 
   @Override
