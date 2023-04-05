@@ -21,6 +21,8 @@ public final class Constants {
         public static final int MINI_FEED_MOTOR = 7;
 
         public static final int STOP_SWITCH = 0;
+
+        public static final double ARM_RETRACT_TOLLERANCE = 2.0;
     }
 
     public static class ControllerConstants {
