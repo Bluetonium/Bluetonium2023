@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -32,9 +32,9 @@ public class ChangeMiniArmPos extends CommandBase {
   @Override
   public void execute() {
     if (retracting) {
-      RobotContainer.m_arm.miniArmSpeed(-0.4);
+      RobotContainer.m_arm.miniArmSpeed(-0.3);
     } else {
-      RobotContainer.m_arm.miniArmSpeed(0.4);
+      RobotContainer.m_arm.miniArmSpeed(0.3);
     }
   }
 
@@ -48,9 +48,9 @@ public class ChangeMiniArmPos extends CommandBase {
   public boolean isFinished() {
     double current = encoder.getPosition();
     if (retracting) {
-      return Math.abs(current - extendedPos) < 1;
-    } else {
       return Math.abs(current - retractedPos) < 1;
+    } else {
+      return Math.abs(current - extendedPos) < 1;
     }
   }
 }

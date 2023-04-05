@@ -1,6 +1,6 @@
-package frc.robot.commands;
+package frc.robot.commands.ArmCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.utils.Constants.ControllerConstants;
@@ -45,6 +45,18 @@ public class ArmCommand extends CommandBase {
 
     if (RobotContainer.driverController2.getStartButton()) { // override if you care lol
       miniFeed = 0.5;
+    }
+
+    if (RobotContainer.driverController2.getBackButtonPressed()) {
+
+      if (RobotContainer.m_arm.stopSwitch.get()) {
+        SequentialCommandGroup funny = new SequentialCommandGroup(new ChangeMiniArmPos(false));
+        funny.schedule();
+
+      } else {
+        // new SequentialCommandGroup(new ChangeMiniArmPos(true));
+
+      }
     }
 
     RobotContainer.m_arm.miniFeedSpeed(miniFeed); // im dumbb!!!!!
