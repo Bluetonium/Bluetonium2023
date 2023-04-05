@@ -20,6 +20,7 @@ public class Arm extends SubsystemBase {
   public DigitalInput stopSwitch = null;
 
   public RelativeEncoder miniArmPosition;
+  public RelativeEncoder mainArmPostion;
 
   public int firstHueValue = 0;
 
@@ -31,6 +32,7 @@ public class Arm extends SubsystemBase {
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
 
     miniArmPosition = miniArm.getEncoder();
+    mainArmPostion = miniArm.getEncoder();
   }
 
   @Override

@@ -4,9 +4,11 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.utils.Constants.ControllerConstants;
+import frc.robot.commands.ArmCommands.AutoCubeIntake.MiniCubeInTakeAndTransfer;
 
 public class ArmCommand extends CommandBase {
   private double miniArmOffset = 0;
+  private SequentialCommandGroup autoInTake;
 
   public ArmCommand() {
     addRequirements(RobotContainer.m_arm);
@@ -16,6 +18,7 @@ public class ArmCommand extends CommandBase {
   public void initialize() {
     RobotContainer.m_arm.Color('n');
     miniArmOffset = RobotContainer.driverController2.getRightY();
+    autoInTake = new MiniCubeInTakeAndTransfer();
   }
 
   @Override
@@ -47,16 +50,8 @@ public class ArmCommand extends CommandBase {
       miniFeed = 0.5;
     }
 
-    if (RobotContainer.driverController2.getBackButtonPressed()) {
-
-      if (RobotContainer.m_arm.stopSwitch.get()) {
-        SequentialCommandGroup funny = new SequentialCommandGroup(new ChangeMiniArmPos(false));
-        funny.schedule();
-
-      } else {
-        // new SequentialCommandGroup(new ChangeMiniArmPos(true));
-
-      }
+    if (RobotContainer.driverController2.getBackButtonPressed() && !autoInTake.isScheduled()) {
+      autoInTake.schedule();
     }
 
     RobotContainer.m_arm.miniFeedSpeed(miniFeed); // im dumbb!!!!!
