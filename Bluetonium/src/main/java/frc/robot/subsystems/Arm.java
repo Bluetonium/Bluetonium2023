@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants.ArmConstants;
 import frc.robot.utils.Constants.MiscConstants;
 import frc.robot.RobotContainer;
-
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 public class Arm extends SubsystemBase {
 
@@ -19,8 +19,14 @@ public class Arm extends SubsystemBase {
   public CANSparkMax miniFeed = null;
   public DigitalInput stopSwitch = null;
 
+  public double mainArmZeroOffset;
+  public double miniArmZeroOffset;
+
   public RelativeEncoder miniArmPosition;
   public RelativeEncoder mainArmPostion;
+
+  public SparkMaxPIDController mainArmPID;
+  public SparkMaxPIDController miniArmPID;
 
   public int firstHueValue = 0;
 
@@ -31,6 +37,22 @@ public class Arm extends SubsystemBase {
     miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
 
+    mainArmPID = arm.getPIDController();
+
+    mainArmPID.setP(ArmConstants.MAIN_PID_P);
+    mainArmPID.setI(ArmConstants.MAIN_PID_I);
+    mainArmPID.setD(ArmConstants.MAIN_PID_D);
+    mainArmPID.setOutputRange(ArmConstants.MAIN_MIN, ArmConstants.MAIN_MAX);
+
+    miniArmPID = arm.getPIDController();
+
+    miniArmPID.setP(ArmConstants.MINI_PID_P);
+    miniArmPID.setI(ArmConstants.MINI_PID_I);
+    miniArmPID.setD(ArmConstants.MINI_PID_D);
+    miniArmPID.setOutputRange(ArmConstants.MINI_MIN, ArmConstants.MINI_MAX);
+
+    miniArm.setInverted(false);
+
     miniArmPosition = miniArm.getEncoder();
     mainArmPostion = arm.getEncoder();
   }
@@ -40,11 +62,11 @@ public class Arm extends SubsystemBase {
   }
 
   public void mainArmSpeed(double speed) {
-    arm.set(speed);
+    // arm.set(speed);
   }
 
   public void miniArmSpeed(double speed) {
-    miniArm.set(speed);
+    // miniArm.set(speed);
   }
 
   public void miniFeedSpeed(double speed) {
@@ -53,6 +75,14 @@ public class Arm extends SubsystemBase {
 
   public void feedSpeed(double speed) {
     feed.set(speed);
+  }
+
+  public double getMiniArmPos() {
+    return miniArmPosition.getPosition() - miniArmZeroOffset;
+  }
+
+  public double getMainArmPos() {
+    return mainArmPostion.getPosition() - mainArmZeroOffset;
   }
 
   public void Color(char color) {

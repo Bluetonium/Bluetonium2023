@@ -5,8 +5,7 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.utils.Constants.ControllerConstants;
 import frc.robot.commands.ArmCommands.AutoCubeIntake.MiniCubeInTakeAndTransfer;
-import com.revrobotics.RelativeEncoder;
-import frc.robot.utils.Constants.ArmConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmCommand extends CommandBase {
   private double miniArmOffset = 0;
@@ -23,12 +22,12 @@ public class ArmCommand extends CommandBase {
     autoInTake = new MiniCubeInTakeAndTransfer();
   }
 
-  public boolean checkRetracted(RelativeEncoder theThing) {
-    return theThing.getPosition() < ArmConstants.ARM_RETRACT_TOLLERANCE;
-  }
-
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Main Arm Position", RobotContainer.m_arm.getMainArmPos());
+    SmartDashboard.putNumber("Mini Arm Position", RobotContainer.m_arm.getMiniArmPos());
+    SmartDashboard.updateValues();
+
     double speedArm = RobotContainer.driverController2.getLeftY();
     if (Math.abs(speedArm) >= ControllerConstants.DRIVER_MINIMUM_SPEED) {
       RobotContainer.m_arm.mainArmSpeed(speedArm / 2);
