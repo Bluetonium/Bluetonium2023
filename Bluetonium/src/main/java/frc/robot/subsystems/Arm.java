@@ -39,19 +39,20 @@ public class Arm extends SubsystemBase {
 
     mainArmPID = arm.getPIDController();
 
-    mainArmPID.setP(ArmConstants.MAIN_PID_P);
-    mainArmPID.setI(ArmConstants.MAIN_PID_I);
-    mainArmPID.setD(ArmConstants.MAIN_PID_D);
-    mainArmPID.setOutputRange(ArmConstants.MAIN_MIN, ArmConstants.MAIN_MAX);
+    // mainArmPID.setP(ArmConstants.MAIN_PID_P);
+    // mainArmPID.setI(ArmConstants.MAIN_PID_I);
+    // mainArmPID.setD(ArmConstants.MAIN_PID_D);
+    // mainArmPID.setOutputRange(ArmConstants.MAIN_MIN, ArmConstants.MAIN_MAX);
 
     miniArmPID = arm.getPIDController();
 
-    miniArmPID.setP(ArmConstants.MINI_PID_P);
-    miniArmPID.setI(ArmConstants.MINI_PID_I);
-    miniArmPID.setD(ArmConstants.MINI_PID_D);
-    miniArmPID.setOutputRange(ArmConstants.MINI_MIN, ArmConstants.MINI_MAX);
+    // miniArmPID.setP(ArmConstants.MINI_PID_P);
+    // miniArmPID.setI(ArmConstants.MINI_PID_I);
+    // miniArmPID.setD(ArmConstants.MINI_PID_D);
+    // miniArmPID.setOutputRange(ArmConstants.MINI_MIN, ArmConstants.MINI_MAX);
 
     miniArm.setInverted(false);
+    miniFeed.setInverted(false);
 
     miniArmPosition = miniArm.getEncoder();
     mainArmPostion = arm.getEncoder();
@@ -62,11 +63,11 @@ public class Arm extends SubsystemBase {
   }
 
   public void mainArmSpeed(double speed) {
-    // arm.set(speed);
+    arm.set(speed);
   }
 
   public void miniArmSpeed(double speed) {
-    // miniArm.set(speed);
+    miniArm.set(speed);
   }
 
   public void miniFeedSpeed(double speed) {
@@ -131,14 +132,16 @@ public class Arm extends SubsystemBase {
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);
   }
 
-  // they call me Mr.Comedy
   public void rainbow() {
     for (var i = 0; i < RobotContainer.m_ledBuffer.getLength(); i++) {
-      final var hue = (firstHueValue + (i * 180 / RobotContainer.m_ledBuffer.getLength())) % 180;
-      RobotContainer.m_ledBuffer.setHSV(i, hue, 255, 128);
+      // final var hue = (firstHueValue + (i * 180 /
+      // RobotContainer.m_ledBuffer.getLength())) % 180;
+
+      RobotContainer.m_ledBuffer.setHSV(i, firstHueValue, 255, 200);
+
     }
 
-    firstHueValue += 3;
+    firstHueValue += 10;
     firstHueValue %= 180;
 
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);

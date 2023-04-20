@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.cameraserver.CameraServer;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -17,13 +16,12 @@ public class Robot extends TimedRobot {
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);// i think i only need to do this once
     RobotContainer.m_led.start();
 
-    CameraServer.startAutomaticCapture();
-
     m_robotContainer = new RobotContainer();
   }
 
   @Override
   public void robotPeriodic() {
+    RobotContainer.m_arm.rainbow();
     CommandScheduler.getInstance().run();
   }
 

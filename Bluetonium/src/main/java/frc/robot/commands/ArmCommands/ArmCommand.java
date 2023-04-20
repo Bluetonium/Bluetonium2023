@@ -40,7 +40,7 @@ public class ArmCommand extends CommandBase {
 
     if (RobotContainer.driverController2.getLeftBumper()) {
       if (RobotContainer.m_arm.stopSwitch.get()) {
-        miniFeed = 0.5;
+        miniFeed = 0.7;
       } else {
         RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 0.5); // STOP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       }
@@ -76,16 +76,18 @@ public class ArmCommand extends CommandBase {
               - RobotContainer.driverController2.getRightTriggerAxis(), 3));// fancy logic moment
     }
 
-    // colors, colors everywhere
-    if (RobotContainer.driverController2.getYButton()) {
-      RobotContainer.m_arm.Color('y');
-    } else if (RobotContainer.driverController2.getAButton()) {
-      RobotContainer.m_arm.Color('p');
-    } else if (RobotContainer.driverController2.getXButton()) {
-      RobotContainer.m_arm.Color('n');
-    } else if (RobotContainer.driverController2.getBButton()) {
-      RobotContainer.m_arm.rainbow();
-    }
+    /*
+     * // colors, colors everywhere
+     * if (RobotContainer.driverController2.getYButton()) {
+     * RobotContainer.m_arm.Color('y');
+     * } else if (RobotContainer.driverController2.getAButton()) {
+     * RobotContainer.m_arm.Color('p');
+     * } else if (RobotContainer.driverController2.getXButton()) {
+     * RobotContainer.m_arm.Color('n');
+     * } else if (RobotContainer.driverController2.getBButton()) {
+     * RobotContainer.m_arm.rainbow();
+     * }
+     */
 
   }
 
