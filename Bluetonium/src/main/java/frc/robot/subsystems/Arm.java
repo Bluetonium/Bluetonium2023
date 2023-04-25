@@ -34,8 +34,10 @@ public class Arm extends SubsystemBase {
     arm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
     miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
-    miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
-    stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking know lol
+    miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR,
+        MotorType.kBrushless);
+    stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking
+    // know lol
 
     mainArmPID = arm.getPIDController();
 
@@ -80,10 +82,12 @@ public class Arm extends SubsystemBase {
 
   public double getMiniArmPos() {
     return miniArmPosition.getPosition() - miniArmZeroOffset;
+
   }
 
   public double getMainArmPos() {
     return mainArmPostion.getPosition() - mainArmZeroOffset;
+
   }
 
   public void Color(char color) {
@@ -123,8 +127,6 @@ public class Arm extends SubsystemBase {
 
     if (currentR == r && currentG == g && currentB == b) {
       return;
-    } else {
-      System.out.printf("R %f G %f B %f\n", currentR, currentG, currentB);
     }
     for (int i = 0; i < MiscConstants.NUMBER_OF_LEDS; i++) {
       RobotContainer.m_ledBuffer.setRGB(i, r, g, b);
@@ -134,14 +136,12 @@ public class Arm extends SubsystemBase {
 
   public void rainbow() {
     for (var i = 0; i < RobotContainer.m_ledBuffer.getLength(); i++) {
-      // final var hue = (firstHueValue + (i * 180 /
-      // RobotContainer.m_ledBuffer.getLength())) % 180;
+      final var hue = (firstHueValue + (i * 180 /
+          RobotContainer.m_ledBuffer.getLength())) % 180;
 
-      RobotContainer.m_ledBuffer.setHSV(i, firstHueValue, 255, 200);
-
+      RobotContainer.m_ledBuffer.setHSV(i, hue, 255, 200);
     }
-
-    firstHueValue += 10;
+    firstHueValue += 5;
     firstHueValue %= 180;
 
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);
