@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.utils.Constants.ControllerConstants;
-//import frc.robot.commands.ArmCommands.AutoCubeIntake.MiniCubeInTakeAndTransfer;
+import frc.robot.commands.ArmCommands.AutoCubeIntake.MiniCubeInTakeAndTransfer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmCommand extends CommandBase {
@@ -18,8 +18,8 @@ public class ArmCommand extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.m_arm.Color('n');
-    // miniArmOffset = RobotContainer.driverController2.getRightY();
-    // autoInTake = new MiniCubeInTakeAndTransfer();
+     miniArmOffset = RobotContainer.driverController2.getRightY();
+     autoInTake = new MiniCubeInTakeAndTransfer();
   }
 
   @Override
