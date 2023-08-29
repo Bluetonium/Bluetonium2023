@@ -10,6 +10,7 @@ import frc.robot.utils.Constants.MiscConstants;
 import frc.robot.RobotContainer;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 
 public class Arm extends SubsystemBase {
 
@@ -30,6 +31,9 @@ public class Arm extends SubsystemBase {
 
   public int firstHueValue = 0;
 
+  private SlewRateLimiter mainArmFilter;
+  private SlewRateLimiter miniArmFilter;
+
   public Arm() {
     arm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
@@ -39,25 +43,13 @@ public class Arm extends SubsystemBase {
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking
     // know lol
 
-    mainArmPID = arm.getPIDController();
-
-    // mainArmPID.setP(ArmConstants.MAIN_PID_P);
-    // mainArmPID.setI(ArmConstants.MAIN_PID_I);
-    // mainArmPID.setD(ArmConstants.MAIN_PID_D);
-    // mainArmPID.setOutputRange(ArmConstants.MAIN_MIN, ArmConstants.MAIN_MAX);
-
-    miniArmPID = arm.getPIDController();
-
-    // miniArmPID.setP(ArmConstants.MINI_PID_P);
-    // miniArmPID.setI(ArmConstants.MINI_PID_I);
-    // miniArmPID.setD(ArmConstants.MINI_PID_D);
-    // miniArmPID.setOutputRange(ArmConstants.MINI_MIN, ArmConstants.MINI_MAX);
-
     miniArm.setInverted(false);
     miniFeed.setInverted(false);
 
     miniArmPosition = miniArm.getEncoder();
     mainArmPostion = arm.getEncoder();
+    mainArmFilter = new SlewRateLimiter(0.1d);
+    miniArmFilter = new SlewRateLimiter(0.2);
   }
 
   @Override
@@ -65,11 +57,13 @@ public class Arm extends SubsystemBase {
   }
 
   public void mainArmSpeed(double speed) {
-    arm.set(speed);
+    double calculatedValue = mainArmFilter.calculate(speed);
+    arm.set(Math.min(speed, calculatedValue));
   }
 
   public void miniArmSpeed(double speed) {
-    miniArm.set(speed);
+    double calculatedValue = miniArmFilter.calculate(speed);
+    miniArm.set(Math.min(speed, calculatedValue));
   }
 
   public void miniFeedSpeed(double speed) {
@@ -131,19 +125,6 @@ public class Arm extends SubsystemBase {
     for (int i = 0; i < MiscConstants.NUMBER_OF_LEDS; i++) {
       RobotContainer.m_ledBuffer.setRGB(i, r, g, b);
     }
-    RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);
-  }
-
-  public void rainbow() {
-    for (var i = 0; i < RobotContainer.m_ledBuffer.getLength(); i++) {
-      final var hue = (firstHueValue + (i * 180 /
-          RobotContainer.m_ledBuffer.getLength())) % 180;
-
-      RobotContainer.m_ledBuffer.setHSV(i, hue, 255, 200);
-    }
-    firstHueValue += 5;
-    firstHueValue %= 180;
-
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);
   }
 }
