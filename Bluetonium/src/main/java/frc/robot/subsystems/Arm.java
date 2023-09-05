@@ -2,15 +2,15 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants.ArmConstants;
 import frc.robot.utils.Constants.MiscConstants;
 import frc.robot.RobotContainer;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
 public class Arm extends SubsystemBase {
 
@@ -23,8 +23,8 @@ public class Arm extends SubsystemBase {
   public double mainArmZeroOffset;
   public double miniArmZeroOffset;
 
-  public RelativeEncoder miniArmPosition;
-  public RelativeEncoder mainArmPostion;
+  public DutyCycleEncoder miniArmPosition;
+  public DutyCycleEncoder mainArmPostion;
 
   public SparkMaxPIDController mainArmPID;
   public SparkMaxPIDController miniArmPID;
@@ -38,32 +38,48 @@ public class Arm extends SubsystemBase {
     arm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
     miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
-    miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR,
-        MotorType.kBrushless);
+    miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
     stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking
     // know lol
 
     miniArm.setInverted(false);
     miniFeed.setInverted(false);
 
-    miniArmPosition = miniArm.getEncoder();
-    mainArmPostion = arm.getEncoder();
-    mainArmFilter = new SlewRateLimiter(0.1d);
-    miniArmFilter = new SlewRateLimiter(0.2);
+    miniArmPosition = new DutyCycleEncoder(ArmConstants.MINI_ARM_ENCODER_PORT);
+    mainArmPostion = new DutyCycleEncoder(ArmConstants.MAIN_ARM_ENCODER_PORT);
+    mainArmFilter = new SlewRateLimiter(0.3d);
+    miniArmFilter = new SlewRateLimiter(0.3d);
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Main Arm Position",
+        RobotContainer.m_arm.getMainArmPos());
+    SmartDashboard.putNumber("Mini Arm Position",
+        RobotContainer.m_arm.getMiniArmPos());
+    SmartDashboard.updateValues();
   }
 
   public void mainArmSpeed(double speed) {
-    double calculatedValue = mainArmFilter.calculate(speed);
-    arm.set(Math.min(speed, calculatedValue));
+    if (!CheckMiniArmOut() && Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
+      mainArmFilter.reset(0);
+      arm.set(0);
+      return;
+    }
+    arm.set(mainArmFilter.calculate(speed));
   }
 
   public void miniArmSpeed(double speed) {
-    double calculatedValue = miniArmFilter.calculate(speed);
-    miniArm.set(Math.min(speed, calculatedValue));
+
+    if (!CheckMainArmOut() && Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
+      miniArmFilter.reset(0);
+      miniArm.set(0);
+      return;
+    }
+
+    miniArm.set(miniArmFilter.calculate(speed));
+    // miniArm.set(speed);
+
   }
 
   public void miniFeedSpeed(double speed) {
@@ -75,13 +91,12 @@ public class Arm extends SubsystemBase {
   }
 
   public double getMiniArmPos() {
-    return miniArmPosition.getPosition() - miniArmZeroOffset;
+    return miniArmPosition.getAbsolutePosition();
 
   }
 
   public double getMainArmPos() {
-    return mainArmPostion.getPosition() - mainArmZeroOffset;
-
+    return mainArmPostion.getAbsolutePosition();
   }
 
   public void Color(char color) {
@@ -115,16 +130,19 @@ public class Arm extends SubsystemBase {
         b = 0;
         break;
     }
-    double currentR = RobotContainer.m_ledBuffer.getLED(0).red;
-    double currentG = RobotContainer.m_ledBuffer.getLED(0).green;
-    double currentB = RobotContainer.m_ledBuffer.getLED(0).blue;
-
-    if (currentR == r && currentG == g && currentB == b) {
-      return;
-    }
     for (int i = 0; i < MiscConstants.NUMBER_OF_LEDS; i++) {
       RobotContainer.m_ledBuffer.setRGB(i, r, g, b);
     }
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);
+  }
+
+  private boolean CheckMainArmOut() {
+    //return getMainArmPos() > ArmConstants.MAIN_ARM_OUT_THRESHOLD;
+    return false;
+  }
+
+  private boolean CheckMiniArmOut() {
+    //return getMiniArmPos() > ArmConstants.MINI_ARM_OUT_THRESHOLD;
+    return false;
   }
 }

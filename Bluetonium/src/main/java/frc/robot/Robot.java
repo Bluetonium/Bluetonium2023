@@ -21,7 +21,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    // RobotContainer.m_arm.rainbow();
     CommandScheduler.getInstance().run();
   }
 
