@@ -6,11 +6,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants.ArmConstants;
-import frc.robot.utils.Constants.MiscConstants;
+import frc.robot.utils.Constants.LedConstants;
 import frc.robot.RobotContainer;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import frc.robot.utils.Constants.ledColors;
 
 public class Arm extends SubsystemBase {
 
@@ -34,13 +35,14 @@ public class Arm extends SubsystemBase {
   private SlewRateLimiter mainArmFilter;
   private SlewRateLimiter miniArmFilter;
 
+  private ledColors currentColor;
+
   public Arm() {
     arm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
     miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
     miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
-    stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH); // i dont fucking
-    // know lol
+    stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH);
 
     miniArm.setInverted(false);
     miniFeed.setInverted(false);
@@ -78,8 +80,6 @@ public class Arm extends SubsystemBase {
     }
 
     miniArm.set(miniArmFilter.calculate(speed));
-    // miniArm.set(speed);
-
   }
 
   public void miniFeedSpeed(double speed) {
@@ -99,30 +99,23 @@ public class Arm extends SubsystemBase {
     return mainArmPostion.getAbsolutePosition();
   }
 
-  public void Color(char color) {
+  public void Color(ledColors newColor) {// switch this to using a enum and an array for rgb
+    if(currentColor == newColor) 
+      return;
+    currentColor = newColor;
     Short r;
     short g;
     short b;
-    switch (color) {
-      case 'y':
+    switch (newColor) {
+      case YELLOW:
         r = 255;
         g = 255;
         b = 0;
         break;
-      case 'p':
+      case PURPLE:
         r = 160;
         g = 32;
         b = 240;
-        break;
-      case 'n':
-        r = 0;
-        g = 0;
-        b = 0;
-        break;
-      case 's':
-        r = 0;
-        g = 125;
-        b = 0;
         break;
       default:
         r = 0;
@@ -130,19 +123,19 @@ public class Arm extends SubsystemBase {
         b = 0;
         break;
     }
-    for (int i = 0; i < MiscConstants.NUMBER_OF_LEDS; i++) {
+    for (int i = 0; i < LedConstants.NUMBER_OF_LEDS; i++) {
       RobotContainer.m_ledBuffer.setRGB(i, r, g, b);
     }
     RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);
   }
 
   private boolean CheckMainArmOut() {
-    //return getMainArmPos() > ArmConstants.MAIN_ARM_OUT_THRESHOLD;
+    // return getMainArmPos() > ArmConstants.MAIN_ARM_OUT_THRESHOLD;
     return false;
   }
 
   private boolean CheckMiniArmOut() {
-    //return getMiniArmPos() > ArmConstants.MINI_ARM_OUT_THRESHOLD;
+    // return getMiniArmPos() > ArmConstants.MINI_ARM_OUT_THRESHOLD;
     return false;
   }
 }

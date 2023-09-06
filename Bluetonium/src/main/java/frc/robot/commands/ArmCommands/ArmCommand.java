@@ -1,6 +1,7 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.*;
+import frc.robot.utils.Constants.ledColors;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +14,6 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    RobotContainer.m_arm.Color('n');
   }
 
   @Override
@@ -75,11 +75,11 @@ public class ArmCommand extends CommandBase {
 
   private void GetColorInput() {
     if (RobotContainer.driverController2.getYButton()) {
-      RobotContainer.m_arm.Color('y');
+      RobotContainer.m_arm.Color(ledColors.YELLOW);
     } else if (RobotContainer.driverController2.getAButton()) {
-      RobotContainer.m_arm.Color('p');
+      RobotContainer.m_arm.Color(ledColors.PURPLE);
     } else if (RobotContainer.driverController2.getXButton()) {
-      RobotContainer.m_arm.Color('n');
+      RobotContainer.m_arm.Color(ledColors.OFF);
     }
   }
 

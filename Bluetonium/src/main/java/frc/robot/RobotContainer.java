@@ -8,7 +8,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import frc.robot.utils.Constants.MiscConstants;
+import frc.robot.utils.Constants.LedConstants;
 import frc.robot.utils.Constants.ControllerConstants;
 
 public class RobotContainer {
@@ -19,8 +19,8 @@ public class RobotContainer {
   public static XboxController driverController1 = new XboxController(ControllerConstants.DRIVER_CONTROLLER1);
   public static XboxController driverController2 = new XboxController(ControllerConstants.DRIVER_CONTROLLER2);
 
-  public static AddressableLED m_led = new AddressableLED(MiscConstants.LED_PWM_PORT);
-  public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(MiscConstants.NUMBER_OF_LEDS);
+  public static AddressableLED m_led = new AddressableLED(LedConstants.LED_PWM_PORT);
+  public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LedConstants.NUMBER_OF_LEDS);
 
   public RobotContainer() {
     configureButtonBindings();

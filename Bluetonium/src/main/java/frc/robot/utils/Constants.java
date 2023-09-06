@@ -48,8 +48,14 @@ public final class Constants {
         public static final int DRIVER_CONTROLLER2_NONE = 5;
     }
 
-    public static class MiscConstants {
+    public static class LedConstants {
         public static final int LED_PWM_PORT = 0;
         public static final int NUMBER_OF_LEDS = 93;// change later bc tbh i dont really know
+        
     }
+    public static enum ledColors {
+            YELLOW,
+            PURPLE,
+            OFF
+         }
 }
