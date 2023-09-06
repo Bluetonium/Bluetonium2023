@@ -1,7 +1,7 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.utils.Constants.ledColors;
+import frc.robot.utils.Constants.ledColors;//i was here
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,7 +45,7 @@ public class ArmCommand extends CommandBase {
 
     RobotContainer.m_arm.feedSpeed(
         Math.pow(RobotContainer.driverController2.getLeftTriggerAxis()
-            - RobotContainer.driverController2.getRightTriggerAxis(), 3));// fancy logic moment
+            - RobotContainer.driverController2.getRightTriggerAxis(), 3));
 
   }
 
@@ -83,5 +83,4 @@ public class ArmCommand extends CommandBase {
     }
   }
 
- 
 }

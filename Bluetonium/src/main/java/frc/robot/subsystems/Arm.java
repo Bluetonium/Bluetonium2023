@@ -130,12 +130,10 @@ public class Arm extends SubsystemBase {
   }
 
   private boolean CheckMainArmOut() {
-    // return getMainArmPos() > ArmConstants.MAIN_ARM_OUT_THRESHOLD;
-    return false;
+     return getMainArmPos() > 0;
   }
 
   private boolean CheckMiniArmOut() {
-    // return getMiniArmPos() > ArmConstants.MINI_ARM_OUT_THRESHOLD;
-    return false;
+    return getMiniArmPos() > 0;
   }
 }
