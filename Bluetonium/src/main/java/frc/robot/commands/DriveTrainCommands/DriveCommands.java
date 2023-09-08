@@ -1,6 +1,6 @@
 package frc.robot.commands.DriveTrainCommands;
 
-import frc.robot.*;
+import frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -16,7 +16,7 @@ public class DriveCommands extends CommandBase {
   }
 
   @Override
-  public void execute() {
+  public void execute() {//what is the hell is this??????, what did i do and why?
     double slowY = RobotContainer.driverController1.getLeftY() * 0.7;
     double slowX = RobotContainer.driverController1.getLeftX();
 

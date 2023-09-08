@@ -60,18 +60,16 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Main Arm Position",getMainArmPos());
     SmartDashboard.putNumber("Mini Arm Position",getMiniArmPos());
-    SmartDashboard.putNumber("Arm Speed",mainArm.getEncoder().getVelocity());
+    SmartDashboard.putNumber("Main Arm Speed",mainArm.getEncoder().getVelocity());
     SmartDashboard.putNumber("Mini Arm Speed",miniArm.getEncoder().getVelocity());
-    SmartDashboard.putNumber("Arm Feed",feed.getEncoder().getVelocity());
+    SmartDashboard.putNumber("Main Arm Feed",feed.getEncoder().getVelocity());
     SmartDashboard.putNumber("Mini Arm Feed",miniFeed.getEncoder().getVelocity());
     SmartDashboard.putString("Color",currentColor.name());
-    SmartDashboard.putBoolean("Soft Limits Enabled",softLimitsEnabled);
-    SmartDashboard.updateValues();
+    softLimitsEnabled = SmartDashboard.getBoolean("Soft Limits Enabled", softLimitsEnabled);
   }
 
   public void mainArmSpeed(double speed) {
-    SmartDashboard.putNumber("MainArmInput", speed);
-    SmartDashboard.updateValues();
+    SmartDashboard.putNumber("Main Arm Input", speed);
     if (!CheckMiniArmOut() || !softLimitsEnabled) {
       if (Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
         mainArmFilter.reset(0);
@@ -87,6 +85,7 @@ public class Arm extends SubsystemBase {
   }
 
   public void miniArmSpeed(double speed) {
+    SmartDashboard.putNumber("Mini Arm Input", speed);
     if (!CheckMainArmOut() || !softLimitsEnabled) {
       if (Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
         miniArmFilter.reset(0);

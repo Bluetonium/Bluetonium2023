@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.utils.Constants.DriveTrainConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends SubsystemBase {
   public CANSparkMax frontLeftSpark = null;
@@ -42,6 +43,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arDrive(double speed, double turnSpeed) {
+    SmartDashboard.putNumber("Drive Train Input", speed);
+    SmartDashboard.putNumber("Drive Train Turn Input",turnSpeed);
     dDrive.arcadeDrive(speed, turnSpeed);
   }
   @Override
