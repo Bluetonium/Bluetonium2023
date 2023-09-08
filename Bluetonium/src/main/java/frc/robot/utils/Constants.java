@@ -22,9 +22,9 @@ public final class Constants {
 
         public static final int STOP_SWITCH = 2;
 
-        public static final double MAIN_ARM_OUT_THRESHOLD = 0.4;
+        public static final double MAIN_ARM_OUT_THRESHOLD = 0.6;
         
-        public static final double MINI_ARM_OUT_THRESHOLD = 0.4;
+        public static final double MINI_ARM_OUT_THRESHOLD = 0.33;
         
         public static final double ARM_SPEED_DEADZONE = 0.1;
     }

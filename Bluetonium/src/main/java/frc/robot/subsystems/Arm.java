@@ -11,11 +11,12 @@ import frc.robot.RobotContainer;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.utils.Constants.ledColors;
 
 public class Arm extends SubsystemBase {
 
-  public CANSparkMax arm = null;
+  public CANSparkMax mainArm = null;
   public CANSparkMax feed = null;
   public CANSparkMax miniArm = null;
   public CANSparkMax miniFeed = null;
@@ -35,10 +36,12 @@ public class Arm extends SubsystemBase {
   private SlewRateLimiter mainArmFilter;
   private SlewRateLimiter miniArmFilter;
 
-  private ledColors currentColor;
+  private ledColors currentColor = ledColors.OFF;
+
+  private boolean softLimitsEnabled = true;
 
   public Arm() {
-    arm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
+    mainArm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
     miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
     miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
@@ -55,31 +58,46 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Main Arm Position",
-        RobotContainer.m_arm.getMainArmPos());
-    SmartDashboard.putNumber("Mini Arm Position",
-        RobotContainer.m_arm.getMiniArmPos());
+    SmartDashboard.putNumber("Main Arm Position",getMainArmPos());
+    SmartDashboard.putNumber("Mini Arm Position",getMiniArmPos());
+    SmartDashboard.putNumber("Arm Speed",mainArm.getEncoder().getVelocity());
+    SmartDashboard.putNumber("Mini Arm Speed",miniArm.getEncoder().getVelocity());
+    SmartDashboard.putNumber("Arm Feed",feed.getEncoder().getVelocity());
+    SmartDashboard.putNumber("Mini Arm Feed",miniFeed.getEncoder().getVelocity());
+    SmartDashboard.putString("Color",currentColor.name());
+    SmartDashboard.putBoolean("Soft Limits Enabled",softLimitsEnabled);
     SmartDashboard.updateValues();
   }
 
   public void mainArmSpeed(double speed) {
-    if (!CheckMiniArmOut() && Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
-      mainArmFilter.reset(0);
-      arm.set(0);
-      return;
+    SmartDashboard.putNumber("MainArmInput", speed);
+    SmartDashboard.updateValues();
+    if (!CheckMiniArmOut() || !softLimitsEnabled) {
+      if (Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
+        mainArmFilter.reset(0);
+        mainArm.set(0);
+        return;
+      }
+      mainArm.set(mainArmFilter.calculate(speed));
+    } else {
+      RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 1);
+      mainArm.set(0);
     }
-    arm.set(mainArmFilter.calculate(speed));
+    
   }
 
   public void miniArmSpeed(double speed) {
-
-    if (!CheckMainArmOut() && Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
-      miniArmFilter.reset(0);
+    if (!CheckMainArmOut() || !softLimitsEnabled) {
+      if (Math.abs(speed) < ArmConstants.ARM_SPEED_DEADZONE) {
+        miniArmFilter.reset(0);
+        miniArm.set(0);
+        return;
+      }
+       miniArm.set(miniArmFilter.calculate(speed));
+    } else {
+      RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 1);
       miniArm.set(0);
-      return;
     }
-
-    miniArm.set(miniArmFilter.calculate(speed));
   }
 
   public void miniFeedSpeed(double speed) {
@@ -100,7 +118,7 @@ public class Arm extends SubsystemBase {
   }
 
   public void Color(ledColors newColor) {// switch this to using a enum and an array for rgb
-    if(currentColor == newColor) 
+    if (currentColor == newColor)
       return;
     currentColor = newColor;
     Short r;
@@ -130,10 +148,10 @@ public class Arm extends SubsystemBase {
   }
 
   private boolean CheckMainArmOut() {
-     return getMainArmPos() > 0;
+    return getMainArmPos() < ArmConstants.MAIN_ARM_OUT_THRESHOLD;// janky
   }
 
   private boolean CheckMiniArmOut() {
-    return getMiniArmPos() > 0;
+    return getMiniArmPos() > ArmConstants.MINI_ARM_OUT_THRESHOLD;
   }
 }

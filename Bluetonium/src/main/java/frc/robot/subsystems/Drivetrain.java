@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.utils.Constants.DriveTrainConstants;
@@ -43,7 +44,6 @@ public class Drivetrain extends SubsystemBase {
   public void arDrive(double speed, double turnSpeed) {
     dDrive.arcadeDrive(speed, turnSpeed);
   }
-
   @Override
   public void periodic() {
   }

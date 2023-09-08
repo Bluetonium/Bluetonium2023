@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.utils.Constants.ledColors;//i was here
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmCommand extends CommandBase {
 
@@ -18,13 +17,6 @@ public class ArmCommand extends CommandBase {
 
   @Override
   public void execute() {
-
-    SmartDashboard.putNumber("Main Arm Position",
-        RobotContainer.m_arm.getMainArmPos());
-    SmartDashboard.putNumber("Mini Arm Position",
-        RobotContainer.m_arm.getMiniArmPos());
-    SmartDashboard.updateValues();
-
     GetMainArmInput();
     GetMiniArmInput();
     GetColorInput();
