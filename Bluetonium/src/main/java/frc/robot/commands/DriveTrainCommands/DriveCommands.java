@@ -16,18 +16,8 @@ public class DriveCommands extends CommandBase {
   }
 
   @Override
-  public void execute() {//what is the hell is this??????, what did i do and why?
-    double slowY = RobotContainer.driverController1.getLeftY() * 0.7;
-    double slowX = RobotContainer.driverController1.getLeftX();
-
-    boolean goingSlow = Math.abs(slowY) > 0.1;
-
-    double speed = goingSlow ? slowY : slowY;
-
-    double rotateSpeed = slowX / 2;
-
-    RobotContainer.m_drivetrain.arDrive(speed, rotateSpeed);
-
+  public void execute() {
+    RobotContainer.m_drivetrain.arDrive(RobotContainer.driverController1.getLeftY(), RobotContainer.driverController1.getLeftX());
   }
 
   @Override
