@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller;
 import frc.robot.commands.AutoCommands.MaybeAnAuto;
 import frc.robot.commands.ArmCommands.ArmCommand;
 import frc.robot.commands.DriveTrainCommands.DriveCommands;
@@ -16,7 +17,7 @@ public class RobotContainer {
   public static final Drivetrain m_drivetrain = new Drivetrain();
   public static final Arm m_arm = new Arm();
 
-  public static XboxController driverController1 = new XboxController(ControllerConstants.DRIVER_CONTROLLER1);
+  public static PS4Controller driverController1 = new PS4Controller(ControllerConstants.DRIVER_CONTROLLER1);
   public static XboxController driverController2 = new XboxController(ControllerConstants.DRIVER_CONTROLLER2);
 
   public static AddressableLED m_led = new AddressableLED(LedConstants.LED_PWM_PORT);
