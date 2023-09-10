@@ -35,8 +35,8 @@ public class ArmCommand extends CommandBase {
     RobotContainer.m_arm.mainArmSpeed(speedArm / 3);
 
     RobotContainer.m_arm.feedSpeed(
-        Math.pow(RobotContainer.driverController2.getLeftTriggerAxis()
-            - RobotContainer.driverController2.getRightTriggerAxis(), 3));
+        Math.pow(RobotContainer.driverController2.getL2Axis()
+            - RobotContainer.driverController2.getR2Axis(), 3));
 
   }
 
@@ -44,11 +44,11 @@ public class ArmCommand extends CommandBase {
 
     double miniFeed = 0;
 
-    if (RobotContainer.driverController2.getLeftBumper()) {
+    if (RobotContainer.driverController2.getL1Button()) {
       
         miniFeed = 0.7;
      
-    } else if (RobotContainer.driverController2.getRightBumper()) {
+    } else if (RobotContainer.driverController2.getR1Button()) {
       miniFeed = -0.5;
     } else {
       miniFeed = 0;
@@ -63,11 +63,11 @@ public class ArmCommand extends CommandBase {
   }
 
   private void GetColorInput() {
-    if (RobotContainer.driverController2.getYButton()) {
+    if (RobotContainer.driverController2.getSquareButton()) {
       RobotContainer.m_arm.Color(ledColors.YELLOW);
-    } else if (RobotContainer.driverController2.getAButton()) {
+    } else if (RobotContainer.driverController2.getCircleButton()) {
       RobotContainer.m_arm.Color(ledColors.PURPLE);
-    } else if (RobotContainer.driverController2.getXButton()) {
+    } else if (RobotContainer.driverController2.getCrossButton()) {
       RobotContainer.m_arm.Color(ledColors.OFF);
     }
   }

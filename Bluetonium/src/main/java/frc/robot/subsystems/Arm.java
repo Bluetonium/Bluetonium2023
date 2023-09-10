@@ -36,7 +36,7 @@ public class Arm extends SubsystemBase {
 
   private ledColors currentColor = ledColors.OFF;
 
-  private boolean softLimitsEnabled = false;
+  private boolean softLimitsEnabled = true;
 
   public Arm() {
     mainArm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
@@ -113,7 +113,7 @@ public class Arm extends SubsystemBase {
     return mainArmPostion.getAbsolutePosition();
   }
 
-  public void Color(ledColors newColor) {// switch this to using a enum and an array for rgb
+  public void Color(ledColors newColor) {
     if (currentColor == newColor)
       return;
     currentColor = newColor;
