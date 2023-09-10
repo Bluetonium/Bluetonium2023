@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants.ArmConstants;
@@ -20,7 +19,6 @@ public class Arm extends SubsystemBase {
   public CANSparkMax feed = null;
   public CANSparkMax miniArm = null;
   public CANSparkMax miniFeed = null;
-  public DigitalInput stopSwitch = null;
 
   public double mainArmZeroOffset;
   public double miniArmZeroOffset;
@@ -38,14 +36,14 @@ public class Arm extends SubsystemBase {
 
   private ledColors currentColor = ledColors.OFF;
 
-  private boolean softLimitsEnabled = true;
+  private boolean softLimitsEnabled = false;
 
   public Arm() {
     mainArm = new CANSparkMax(ArmConstants.ARM_MOTOR, MotorType.kBrushless);
     feed = new CANSparkMax(ArmConstants.FEED_MOTOR, MotorType.kBrushless);
     miniArm = new CANSparkMax(ArmConstants.MINI_ARM_MOTOR, MotorType.kBrushless);
     miniFeed = new CANSparkMax(ArmConstants.MINI_FEED_MOTOR, MotorType.kBrushless);
-    stopSwitch = new DigitalInput(ArmConstants.STOP_SWITCH);
+
 
     miniArm.setInverted(false);
     miniFeed.setInverted(false);
@@ -53,8 +51,7 @@ public class Arm extends SubsystemBase {
     miniArmPosition = new DutyCycleEncoder(ArmConstants.MINI_ARM_ENCODER_PORT);
     mainArmPostion = new DutyCycleEncoder(ArmConstants.MAIN_ARM_ENCODER_PORT);
     mainArmFilter = new SlewRateLimiter(0.3d);
-    miniArmFilter = new SlewRateLimiter(0.3d);
-  }
+    miniArmFilter = new SlewRateLimiter(0.3d); }
 
   @Override
   public void periodic() {

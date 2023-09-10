@@ -3,7 +3,6 @@ package frc.robot.commands.ArmCommands;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.utils.Constants.ledColors;//i was here
 import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class ArmCommand extends CommandBase {
 
@@ -46,11 +45,9 @@ public class ArmCommand extends CommandBase {
     double miniFeed = 0;
 
     if (RobotContainer.driverController2.getLeftBumper()) {
-      if (RobotContainer.m_arm.stopSwitch.get()) {
+      
         miniFeed = 0.7;
-      } else {
-        RobotContainer.driverController2.setRumble(RumbleType.kBothRumble, 0.5);
-      }
+     
     } else if (RobotContainer.driverController2.getRightBumper()) {
       miniFeed = -0.5;
     } else {
