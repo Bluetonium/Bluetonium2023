@@ -17,8 +17,8 @@ public class RobotContainer {
   public static final Drivetrain m_drivetrain = new Drivetrain();
   public static final Arm m_arm = new Arm();
 
-  public static XboxController driverController1 = new XboxController(ControllerConstants.DRIVER_CONTROLLER1);
-  public static PS4Controller driverController2 = new PS4Controller(ControllerConstants.DRIVER_CONTROLLER2);
+  public static PS4Controller driverController1 = new PS4Controller(ControllerConstants.DRIVER_CONTROLLER1);
+  public static XboxController driverController2 = new XboxController(ControllerConstants.DRIVER_CONTROLLER2);
 
   public static AddressableLED m_led = new AddressableLED(LedConstants.LED_PWM_PORT);
   public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LedConstants.NUMBER_OF_LEDS);
