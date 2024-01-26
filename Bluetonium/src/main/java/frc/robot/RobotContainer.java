@@ -24,12 +24,8 @@ public class RobotContainer {
   public static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LedConstants.NUMBER_OF_LEDS);
 
   public RobotContainer() {
-    configureButtonBindings();
     m_drivetrain.setDefaultCommand(new DriveCommands());
     m_arm.setDefaultCommand(new ArmCommand());
-  }
-
-  private void configureButtonBindings() {
   }
 
   public Command getAutonomousCommand() {
