@@ -11,7 +11,7 @@ public class intakeCommand extends Command {
 
     @Override
     public void execute() {
-        if (RobotContainer.driverController1.getLeftTriggerAxis() > 0.2) {
+        if (RobotContainer.armController.getLeftTriggerAxis() > 0.2) {
             RobotContainer.m_intake.setMotor1Speed(0.5);
             RobotContainer.m_intake.setMotor2Speed(0.5);
         } else {
