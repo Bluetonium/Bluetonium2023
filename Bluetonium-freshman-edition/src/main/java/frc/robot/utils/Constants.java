@@ -1,20 +1,23 @@
 package frc.robot.utils;
 
-
 public final class Constants {
 
     public static class DriveTrainConstants {
-        public static final int DRIVETRAIN_LEFT_FRONT = 2;
-        public static final int DRIVETRAIN_LEFT_BACK = 3;
-        public static final int DRIVETRAIN_RIGHT_FRONT = 1;
-        public static final int DRIVETRAIN_RIGHT_BACK = 4;
+        public static final int DRIVETRAIN_LEFT_FRONT = 5;
+        public static final int DRIVETRAIN_LEFT_BACK = 4;
+        public static final int DRIVETRAIN_RIGHT_FRONT = 3;
+        public static final int DRIVETRAIN_RIGHT_BACK = 2;
     }
 
+    public static class ArmConstants {
+        public static final int ARM_MOTOR1 = 17;
+        public static final int ARM_MOTOR2 = 15;
+    }
 
     public static class ControllerConstants {
         // the controllers
         public static int DRIVER_CONTROLLER1 = 0;
-        public static int DRIVER_CONTROLLER2 = 1;
+        public static int ARM_controller = 1;
 
         // controller 0 inputs
         public static final int DRIVER_CONTROLLER1_MOVE_AXIS = 2;
@@ -33,11 +36,12 @@ public final class Constants {
     public static class LedConstants {
         public static final int LED_PWM_PORT = 0;
         public static final int NUMBER_OF_LEDS = 93;// change later bc tbh i dont really know
-        
+
     }
+
     public static enum ledColors {
-            YELLOW,
-            PURPLE,
-            OFF
-         }
+        YELLOW,
+        PURPLE,
+        OFF
+    }
 }

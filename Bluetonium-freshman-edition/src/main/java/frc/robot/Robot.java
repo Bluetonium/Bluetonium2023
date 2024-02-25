@@ -12,9 +12,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    RobotContainer.m_led.setLength(RobotContainer.m_ledBuffer.getLength());
-    RobotContainer.m_led.setData(RobotContainer.m_ledBuffer);// i think i only need to do this once
-    RobotContainer.m_led.start();
     m_robotContainer = new RobotContainer();
   }
 
