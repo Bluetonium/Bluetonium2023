@@ -13,7 +13,7 @@ public class RobotContainer {
   public static final Intake m_intake = new Intake();
 
   public static XboxController driverController1 = new XboxController(ControllerConstants.DRIVER_CONTROLLER1);
-  public static XboxController armController = new XboxController(ControllerConstants.ARM_controller);
+  public static XboxController armController = new XboxController(ControllerConstants.ARM_CONTROLLER);
 
   public RobotContainer() {
     m_drivetrain.setDefaultCommand(new DriveCommands());
