@@ -16,8 +16,8 @@ public final class Constants {
 
     public static class ControllerConstants {
         // the controllers
-        public static int DRIVER_CONTROLLER1 = 0;
-        public static int ARM_CONTROLLER = 1;
+        public static final int DRIVER_CONTROLLER1 = 0;
+        public static final int ARM_CONTROLLER = 1;
 
     }
 }

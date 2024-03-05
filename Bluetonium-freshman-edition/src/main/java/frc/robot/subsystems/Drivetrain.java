@@ -15,7 +15,6 @@ public class Drivetrain extends SubsystemBase {
 
   public CANSparkMax frontRightSpark = null;
   public CANSparkMax backRightSpark = null;
-  
 
   public DifferentialDrive dDrive = null;
 
@@ -40,9 +39,10 @@ public class Drivetrain extends SubsystemBase {
 
   public void arDrive(double speed, double turnSpeed) {
     SmartDashboard.putNumber("Drive Train Input", speed);
-    SmartDashboard.putNumber("Drive Train Turn Input",turnSpeed);
+    SmartDashboard.putNumber("Drive Train Turn Input", turnSpeed);
     dDrive.arcadeDrive(speed, turnSpeed);
   }
+
   @Override
   public void periodic() {
   }
